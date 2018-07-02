@@ -18,7 +18,7 @@ This information provides better insights into where and how MONARC is used.
 
 
 ```bash
-$ git clone https://github.com/CASES-LU/version-checker.git
+$ git clone https://github.com/monarc-project/version-checker.git
 $ cd version-checker/
 $ npm install
 $ pipenv install

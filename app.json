@@ -6,8 +6,8 @@
         "software",
         "MONARC"
     ],
-    "website": "https://github.com/CASES-LU/version-checker",
-    "repository": "https://github.com/CASES-LU/version-checker",
+    "website": "https://github.com/monarc-project/version-checker",
+    "repository": "https://github.com/monarc-project/version-checker",
     "addons": [
         "heroku-postgresql:hobby-dev"
     ],
