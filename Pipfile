@@ -16,5 +16,6 @@ Flask-Principal = "*"
 Flask-WTF = "*"
 Flask-Script = "*"
 WTForms = "*"
+flask-migrate = "*"
 
 [dev-packages]
