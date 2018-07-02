@@ -1,0 +1,29 @@
+{
+    "name": "version-checker",
+    "description": "Checks the version of a MONARC instance.",
+    "keywords": [
+        "version",
+        "software",
+        "MONARC"
+    ],
+    "website": "https://github.com/CASES-LU/version-checker",
+    "repository": "https://github.com/CASES-LU/version-checker",
+    "addons": [
+        "heroku-postgresql:hobby-dev"
+    ],
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+        },
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "env": {
+        "APPLICATION_SETTINGS": {
+            "description": "Configuration file for Heroku",
+            "required": true,
+            "value": "heroku.cfg"
+        },
+    }
+}
