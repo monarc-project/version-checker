@@ -10,7 +10,8 @@ Which information does the browser request contain?
 - HTTP referrer URL (local or public hostname);
 - the MONARC version;
 - the timestamp of the request;
-- information about the browser (User-Agent).
+- information about the browser (User-Agent: browser name, version, language
+  and platform).
 
 This is collected when a client hits a specific endpoint from
 version.monarc.lu. The IP of the requestor is not stored, but a HTTP referrer
