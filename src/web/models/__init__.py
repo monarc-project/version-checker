@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from .user import User
+from .stat import Stat
 
 
-__all__ = ['User']
+__all__ = ['User', 'Stat']
 
 from sqlalchemy.engine import reflection
 from sqlalchemy import create_engine
@@ -25,7 +26,7 @@ def uml_graph(db):
     import sqlalchemy_schemadisplay as sasd
 
     graph = sasd.create_uml_graph(
-                        mappers(User),
+                        mappers(User, Stat),
                         show_operations=False,
                         show_multiplicity_one=True
     )
