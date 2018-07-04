@@ -44,17 +44,19 @@ def handle_sqlalchemy_assertion_error(error):
 @current_app.route('/public/<path:filename>', methods=['GET'])
 def uploaded_pictures(filename='Ladybug.jpg', methods=['GET']):
     """
-    Exposes public files (media uploaded by users, etc.).
+    Exposes public files.
     """
     last_version = '2.5.0'
-    client_version = request.args.get('monarc_version')
 
+    # Retrieve information from the client
+    client_version = request.args.get('monarc_version')
     print(request.args.get('monarc_version'))
     print(request.referrer)
     print(request.headers)
     print(request.user_agent)
 
 
+    # Check the version of the client and returns the appropriate image
     # if parse_version(last_version) > parse_version('client_version):
     #     filename = 'update-available.png'
     # else:
