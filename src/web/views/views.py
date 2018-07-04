@@ -46,16 +46,19 @@ def uploaded_pictures(filename='Ladybug.jpg', methods=['GET']):
     """
     Exposes public files (media uploaded by users, etc.).
     """
-    last_version = 'v2.5.0'
+    last_version = '2.5.0'
+    client_version = request.args.get('monarc_version')
+
     print(request.args.get('monarc_version'))
     print(request.referrer)
     print(request.headers)
-    # if not request.referrer:
-    #     print('The referrer header is missing.')
     print(request.user_agent)
-    print(dir(request))
 
-    monarc = {'last_version': last_version}
+
+    # if parse_version(last_version) > parse_version('client_version):
+    #     filename = 'update-available.png'
+    # else:
+    #     filename = 'up-to-date.png'
 
 
     return send_from_directory(os.path.abspath(application.config['UPLOAD_FOLDER']), filename)
