@@ -1,7 +1,7 @@
 import os
 import logging
 from flask import (render_template, url_for, redirect, current_app, flash,
-                  send_from_directory, request)
+                  send_from_directory, request, jsonify)
 from flask_login import login_required
 
 from bootstrap import application
@@ -41,6 +41,38 @@ def handle_sqlalchemy_assertion_error(error):
     return error.args[0], 400
 
 
+@current_app.route('/public/<path:filename>', methods=['GET'])
+def uploaded_pictures(filename='Ladybug.jpg', methods=['GET']):
+    """
+    Exposes public files (media uploaded by users, etc.).
+    """
+    last_version = 'v2.5.0'
+    print(request.args.get('monarc_version'))
+    print(request.referrer)
+    print(request.headers)
+    # if not request.referrer:
+    #     print('The referrer header is missing.')
+    print(request.user_agent)
+    print(dir(request))
+
+    monarc = {'last_version': last_version}
+
+
+    return send_from_directory(os.path.abspath(application.config['UPLOAD_FOLDER']), filename)
+
+
 @current_app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    last_version = 'v2.5.0'
+    print(request.args.get('monarc_version'))
+    # print(request.referrer)
+    if not request.referrer:
+        print('The referrer header is missing.')
+    else:
+        print(request.referrer)
+    print(request.user_agent)
+    print(dir(request))
+
+    monarc = {'last_version': last_version}
+    return jsonify(monarc)
+    #return render_template('index.html')
