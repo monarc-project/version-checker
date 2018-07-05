@@ -82,6 +82,8 @@ $ curl https://monarc-version-checker.herokuapp.com/check/MONARC?version=2.4.0
 <svg baseProfile="full" height="20" version="1.1" width="140" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs /><rect fill="orange" height="20" width="140" x="0" y="0" /><g fill="white" font-family="DejaVu Sans" font-size="14"><text fill="white" font-weight="bold" x="5" y="15">update available</text></g></svg>
 ```
 
+A SVG picture is rendered so that it is possible to include it in a Web page.
+
 ### Asking about version information for a software
 
 ```bash
