@@ -55,9 +55,16 @@ $ heroku run python src/manager.py logs MONARC
 Running python src/manager.py logs MONARC on ⬢ monarc-version-checker... up, run.2944 (Free)
 
 Software: MONARC
+Software version: 2.5.0
 HTTP Referrer: http://127.0.0.1:5001/
 Browser: chrome
-Timestamp: 2018-07-05 11:47:36.127974
+Timestamp: 2018-07-05 12:07:58.746161
+
+Software: MONARC
+Software version: 2.5.0
+HTTP Referrer: None
+Browser: firefox
+Timestamp: 2018-07-05 12:08:09.234619
 ```
 
 
