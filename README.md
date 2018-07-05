@@ -70,7 +70,7 @@ Timestamp: 2018-07-05 12:08:09.234619
 
 ## Usage
 
-Some examples:
+### Checking the version of a software
 
 ```bash
 $ curl https://monarc-version-checker.herokuapp.com/check/MONARC?version=2.5.0
@@ -81,6 +81,8 @@ $ curl https://monarc-version-checker.herokuapp.com/check/MONARC?version=2.4.0
 <?xml version="1.0" encoding="utf-8" ?>
 <svg baseProfile="full" height="20" version="1.1" width="140" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs /><rect fill="orange" height="20" width="140" x="0" y="0" /><g fill="white" font-family="DejaVu Sans" font-size="14"><text fill="white" font-weight="bold" x="5" y="15">update available</text></g></svg>
 ```
+
+### Asking about version information for a software
 
 ```bash
 $ curl https://monarc-version-checker.herokuapp.com/version/MONARC
