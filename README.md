@@ -48,6 +48,19 @@ $ heroku run init
 $ heroku ps:scale web=1
 ```
 
+#### Query the database with the command line tool
+
+```bash
+$ heroku run python src/manager.py logs MONARC
+Running python src/manager.py logs MONARC on ⬢ monarc-version-checker... up, run.2944 (Free)
+
+Software: MONARC
+HTTP Referrer: http://127.0.0.1:5001/
+Browser: chrome
+Timestamp: 2018-07-05 11:47:36.127974
+```
+
+
 ## License
 
 This software is licensed under
