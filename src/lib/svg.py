@@ -24,6 +24,13 @@ STYLE = {
                     "paragraph_fill": "white",
                     "text_fill": "white",
                 },
+    "unknown": {
+                    "text": "unknown",
+                    "rect_size": (95, 20),
+                    "rect_fill": "grey",
+                    "paragraph_fill": "white",
+                    "text_fill": "white",
+                },
 }
 
 

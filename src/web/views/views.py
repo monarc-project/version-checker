@@ -1,5 +1,6 @@
 import os
 import logging
+from pkg_resources import parse_version
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
 from flask_login import login_required
@@ -47,18 +48,18 @@ def uploaded_pictures(filename='test.jpg', methods=['GET']):
     """
     Exposes public files.
     """
-    last_version = '2.5.0'
+    last_version = application.config['VERSIONS']['MONARC']['stable']
 
     # Retrieve information from the client
-    client_version = request.args.get('monarc_version')
-    print(request.args.get('monarc_version'))
+    client_version = request.args.get('version')
+    print(client_version)
     print(request.referrer)
     print(request.headers)
     print(request.user_agent)
 
 
     # Check the version of the client and returns the appropriate image
-    # if parse_version(last_version) > parse_version('client_version):
+    # if parse_version(last_version) > parse_version(client_version):
     #     filename = 'update-available.png'
     # else:
     #     filename = 'up-to-date.png'
@@ -69,8 +70,9 @@ def uploaded_pictures(filename='test.jpg', methods=['GET']):
 
 @current_app.route('/', methods=['GET'])
 def index():
-    last_version = 'v2.5.0'
-    print(request.args.get('monarc_version'))
+    last_version = application.config['VERSIONS']['MONARC']['stable']
+
+    print(request.args.get('version'))
     # print(request.referrer)
     if not request.referrer:
         print('The referrer header is missing.')
@@ -85,8 +87,20 @@ def index():
 
 
 
-@current_app.route('/svg/<state>', methods=['GET'])
-def svgroute(state=None):
+@current_app.route('/check/<software>', methods=['GET'])
+def check_version(software=None):
+    last_version = application.config['VERSIONS']['MONARC']['stable']
+    client_version = request.args.get('version', None)
+
+    # Check the version of the client and returns the appropriate image
+    if client_version:
+        if parse_version(last_version) > parse_version(client_version):
+            state = 'update-available'
+        else:
+            state = 'up-to-date'
+    else:
+        state = 'unknown'
+
 
     file_name = svg.simple_text(state, state, svg.STYLE[state])
 
