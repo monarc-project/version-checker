@@ -7,7 +7,7 @@ from flask import (render_template, url_for, redirect, current_app, flash,
 from flask_login import login_required
 
 from bootstrap import application, db
-from web.models.stat import Stat
+from web.models import Stat
 from lib import svg
 
 logger = logging.getLogger(__name__)
@@ -47,12 +47,17 @@ def handle_sqlalchemy_assertion_error(error):
 
 @current_app.route('/check/<software>', methods=['GET'])
 def check_version(software=None):
-    last_version = application.config['VERSIONS'][software]['stable']
+    """Checks the version of the requested softare and stores some
+    information about the client."""
+    state = None
+    last_version = None
     client_version = request.args.get('version', None)
 
+    if software in application.config['VERSIONS'].keys():
+        last_version = application.config['VERSIONS'][software]['stable']
+
     # Check the version of the client
-    state = None
-    if client_version:
+    if client_version and last_version:
         if parse_version(last_version) > parse_version(client_version):
             state = 'update-available'
         elif parse_version(last_version) == parse_version(client_version):
@@ -70,8 +75,7 @@ def check_version(software=None):
                 user_agent_version=request.user_agent.version,
                 user_agent_language=request.user_agent.language,
                 user_agent_platform=request.user_agent.platform,
-                timestamp=datetime.utcnow(),
-                )
+                timestamp=datetime.utcnow())
     try:
         db.session.add(stat)
         db.session.commit()
@@ -85,4 +89,7 @@ def check_version(software=None):
 @current_app.route('/version/<software>', methods=['GET'])
 def version(software=None):
     """Gives information about current version of a software."""
-    return jsonify(application.config['VERSIONS'][software])
+    if software in application.config['VERSIONS'].keys():
+        return jsonify(application.config['VERSIONS'][software])
+    else:
+        return 'Unknown software.', 404
