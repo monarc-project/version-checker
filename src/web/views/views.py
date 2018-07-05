@@ -64,7 +64,8 @@ def check_version(software=None):
     file_name = svg.simple_text(state, state, svg.STYLE[state])
 
     # Log some information about the client
-    stat = Stat(software=software, http_referrer=request.referrer,
+    stat = Stat(software=software, software_version=client_version,
+                http_referrer=request.referrer,
                 user_agent_browser=request.user_agent.browser,
                 user_agent_version=request.user_agent.version,
                 user_agent_language=request.user_agent.language,

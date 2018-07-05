@@ -8,6 +8,7 @@ class Stat(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     software = db.Column(db.String())
+    software_version = db.Column(db.String())
     http_referrer = db.Column(db.String())
     user_agent_browser = db.Column(db.String())
     user_agent_version = db.Column(db.String())
@@ -17,7 +18,9 @@ class Stat(db.Model):
 
     def __repr__(self):
         return '''Software: {}
+Software version: {}
 HTTP Referrer: {}
 Browser: {}
-Timestamp: {}\n'''.format(self.software, self.http_referrer,
+Timestamp: {}\n'''.format(self.software, self.software_version,
+                            self.http_referrer,
                             self.user_agent_browser, self.timestamp)
