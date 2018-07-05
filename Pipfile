@@ -17,5 +17,6 @@ Flask-WTF = "*"
 Flask-Script = "*"
 WTForms = "*"
 flask-migrate = "*"
+svgwrite = "*"
 
 [dev-packages]

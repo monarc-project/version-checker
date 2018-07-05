@@ -5,6 +5,7 @@ from flask import (render_template, url_for, redirect, current_app, flash,
 from flask_login import login_required
 
 from bootstrap import application
+from lib import svg
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ def handle_sqlalchemy_assertion_error(error):
 
 
 @current_app.route('/public/<path:filename>', methods=['GET'])
-def uploaded_pictures(filename='Ladybug.jpg', methods=['GET']):
+def uploaded_pictures(filename='test.jpg', methods=['GET']):
     """
     Exposes public files.
     """
@@ -81,3 +82,12 @@ def index():
     monarc = {'last_version': last_version}
     return jsonify(monarc)
     #return render_template('index.html')
+
+
+
+@current_app.route('/svg/<state>', methods=['GET'])
+def svgroute(state=None):
+
+    file_name = svg.simple_text(state, state, svg.STYLE[state])
+
+    return send_from_directory(os.path.abspath(application.config['UPLOAD_FOLDER']), file_name)
