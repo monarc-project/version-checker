@@ -3,25 +3,28 @@ from bootstrap import application
 import svgwrite
 
 STYLE = {
-                "up-to-date": {
-                                "rect_size": (95, 20),
-                                "rect_fill": "green",
-                                "paragraph_fill": "white",
-                                "text_fill": "white",
-                            },
-                "update available": {
-                                "rect_size": (140, 20),
-                                "rect_fill": "orange",
-                                "paragraph_fill": "white",
-                                "text_fill": "white",
-                            },
-                "security update available": {
-                                "rect_size": (210, 20),
-                                "rect_fill": "red",
-                                "paragraph_fill": "white",
-                                "text_fill": "white",
-                            },
-            }
+    "up-to-date": {
+                    "text": "up-to-date",
+                    "rect_size": (95, 20),
+                    "rect_fill": "green",
+                    "paragraph_fill": "white",
+                    "text_fill": "white",
+                },
+    "update-available": {
+                    "text": "update available",
+                    "rect_size": (140, 20),
+                    "rect_fill": "orange",
+                    "paragraph_fill": "white",
+                    "text_fill": "white",
+                },
+    "security-update-available": {
+                    "text": "security update available",
+                    "rect_size": (210, 20),
+                    "rect_fill": "red",
+                    "paragraph_fill": "white",
+                    "text_fill": "white",
+                },
+}
 
 
 def simple_text(name, text, style):
@@ -33,7 +36,7 @@ def simple_text(name, text, style):
 
     paragraph = dwg.add(dwg.g(font_size=14, font_family="DejaVu Sans", fill=style["paragraph_fill"]))
 
-    text = dwg.text(text, insert=(5, 15), font_weight='bold', fill=style["text_fill"])
+    text = dwg.text(style["text"], insert=(5, 15), font_weight='bold', fill=style["text_fill"])
 
     paragraph.add(text)
 
