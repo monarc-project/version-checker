@@ -19,7 +19,7 @@ STYLE = {
                 },
     "security-update-available": {
                     "text": "security update available",
-                    "rect_size": (210, 20),
+                    "rect_size": (220, 20),
                     "rect_fill": "red",
                     "paragraph_fill": "white",
                     "text_fill": "white",

@@ -1,11 +1,13 @@
 import os
 import logging
+from datetime import datetime
 from pkg_resources import parse_version
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
 from flask_login import login_required
 
-from bootstrap import application
+from bootstrap import application, db
+from web.models.stat import Stat
 from lib import svg
 
 logger = logging.getLogger(__name__)
@@ -43,65 +45,43 @@ def handle_sqlalchemy_assertion_error(error):
     return error.args[0], 400
 
 
-@current_app.route('/public/<path:filename>', methods=['GET'])
-def uploaded_pictures(filename='test.jpg', methods=['GET']):
-    """
-    Exposes public files.
-    """
-    last_version = application.config['VERSIONS']['MONARC']['stable']
-
-    # Retrieve information from the client
-    client_version = request.args.get('version')
-    print(client_version)
-    print(request.referrer)
-    print(request.headers)
-    print(request.user_agent)
-
-
-    # Check the version of the client and returns the appropriate image
-    # if parse_version(last_version) > parse_version(client_version):
-    #     filename = 'update-available.png'
-    # else:
-    #     filename = 'up-to-date.png'
-
-
-    return send_from_directory(os.path.abspath(application.config['UPLOAD_FOLDER']), filename)
-
-
-@current_app.route('/', methods=['GET'])
-def index():
-    last_version = application.config['VERSIONS']['MONARC']['stable']
-
-    print(request.args.get('version'))
-    # print(request.referrer)
-    if not request.referrer:
-        print('The referrer header is missing.')
-    else:
-        print(request.referrer)
-    print(request.user_agent)
-    print(dir(request))
-
-    monarc = {'last_version': last_version}
-    return jsonify(monarc)
-    #return render_template('index.html')
-
-
-
 @current_app.route('/check/<software>', methods=['GET'])
 def check_version(software=None):
-    last_version = application.config['VERSIONS']['MONARC']['stable']
+    last_version = application.config['VERSIONS'][software]['stable']
     client_version = request.args.get('version', None)
 
-    # Check the version of the client and returns the appropriate image
+    # Check the version of the client
+    state = None
     if client_version:
         if parse_version(last_version) > parse_version(client_version):
             state = 'update-available'
-        else:
+        elif parse_version(last_version) == parse_version(client_version):
             state = 'up-to-date'
-    else:
+    if not state:
         state = 'unknown'
 
-
+    # Generate the image to return
     file_name = svg.simple_text(state, state, svg.STYLE[state])
 
-    return send_from_directory(os.path.abspath(application.config['UPLOAD_FOLDER']), file_name)
+    # Log some information about the client
+    stat = Stat(software=software, http_referrer=request.referrer,
+                user_agent_browser=request.user_agent.browser,
+                user_agent_version=request.user_agent.version,
+                user_agent_language=request.user_agent.language,
+                user_agent_platform=request.user_agent.platform,
+                timestamp=datetime.utcnow(),
+                )
+    try:
+        db.session.add(stat)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+
+    return send_from_directory(
+            os.path.abspath(application.config['UPLOAD_FOLDER']), file_name)
+
+
+@current_app.route('/version/<software>', methods=['GET'])
+def version(software=None):
+    """Gives information about current version of a software."""
+    return jsonify(application.config['VERSIONS'][software])

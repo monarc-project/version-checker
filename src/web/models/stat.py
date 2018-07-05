@@ -7,10 +7,17 @@ class Stat(db.Model):
     Represent a stat.
     """
     id = db.Column(db.Integer, primary_key=True)
+    software = db.Column(db.String())
     http_referrer = db.Column(db.String())
-    user_agent = db.Column(db.String()) # browser: name, version, language, platform
-    monarc_version = db.Column(db.String())
-    request_timestamp = db.Column(db.DateTime(), default=datetime.utcnow())
+    user_agent_browser = db.Column(db.String())
+    user_agent_version = db.Column(db.String())
+    user_agent_language = db.Column(db.String())
+    user_agent_platform = db.Column(db.String())
+    timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
 
-    def __str__(self):
-        return self.id
+    def __repr__(self):
+        return '''Software: {}
+HTTP Referrer: {}
+Browser: {}
+Timestamp: {}\n'''.format(self.software, self.http_referrer,
+                            self.user_agent_browser, self.timestamp)
