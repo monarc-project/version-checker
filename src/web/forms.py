@@ -69,7 +69,6 @@ class UserForm(FlaskForm):
             [validators.Length(min=3, max=30),
             validators.Required('Please enter your login.')])
     password = PasswordField('Password')
-    public_profile = BooleanField('Public profile', default=True)
     is_active = BooleanField('Active', default=True)
     is_admin = BooleanField('Admin', default=False)
     is_api = BooleanField('API', default=False)
@@ -84,5 +83,4 @@ class ProfileForm(FlaskForm):
             [validators.Length(min=3, max=30),
             validators.Required('Please enter your login.')])
     password = PasswordField('Password')
-    public_profile = BooleanField('Public profile', default=True)
     submit = SubmitField('Save')

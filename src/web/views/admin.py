@@ -70,15 +70,14 @@ def process_user_form(user_id=None):
 
     # Create a new user
     new_user = models.User(login=form.login.data,
-                           public_profile=form.public_profile.data,
                            is_active=form.is_active.data,
                            is_admin=form.is_admin.data,
                            is_api=form.is_api.data,
                            pwdhash=generate_password_hash(form.password.data))
     db.session.add(new_user)
     db.session.commit()
-    flash('User %(user_login)s successfully created.'.
-            format(user_login=new_user.login), 'success')
+    flash('User {} successfully created.'.
+            format(new_user.login), 'success')
 
     return redirect(url_for('admin_bp.form_user', user_id=new_user.id))
 
