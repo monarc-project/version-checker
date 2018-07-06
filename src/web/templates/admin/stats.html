@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+<h1>Stats</h1>
+<div class="table-responsive-md">
+    <table id="table-stats" class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Software</th>
+            <th>Software version</th>
+            <th>HTTP referer</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for stat in stats %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ stat.software }}</td>
+            <td>{{ stat.software_version }}</td>
+            <td>{{ stat.http_referrer }}</td>
+            <td class="date">{{ stat.timestamp | datetimeformat }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+<br />
+<a href="#" class="btn btn-default">Export to CSV</a>
+</div>
+<script>
+$(document).ready(function() {
+$('#table-stats').DataTable( {
+    responsive: true,
+    columnDefs: [
+        {
+            bSortable: false,
+            targets: [0]
+        }
+    ]
+});
+});
+</script>
+{% endblock %}
