@@ -46,6 +46,7 @@ $ heroku buildpacks:add --index 1 heroku/python
 $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-nodejs
 $ git push heroku master
 $ heroku run init
+$ heroku run python src/manager.py create_admin <username> <password>
 $ heroku ps:scale web=1
 ```
 
