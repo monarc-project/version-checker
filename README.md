@@ -1,23 +1,46 @@
 # version-checker
 
-
 ## Presentation
 
-Checks the version of a MONARC instance.
+This tool checks the version of a MONARC instance.
 
-Which information does the browser request contain?
+The goal is to reduce the problem of outdated MONARC servers. These servers are
+a potentially security problem.
+
+MONARC users who open the home page in the web interface will see an image in
+the bottom left corner with the text "up-to-date" in green, "update available"
+in orange  or "security update available" in red.
+This will make outdated version more visible for user of a MONARC instance.
+
+When the home page is loaded, the browser of the user requests an image file
+from version.monarc.lu.
+The browser request tells version.monarc.lu the MONARC version which is
+currently running and it responds with the appropriate image so the user can
+see if the MONARC version is up to date. The version number sent in the request
+is encrypted.
+
+The SVG image is rendered by version.monarc.lu. This way we are for example
+able to write a CVE id in the image.
+
+Information from the browser request that are stored:
 
 - HTTP referrer URL (local or public hostname);
 - the MONARC version;
-- the timestamp of the request;
 - information about the browser (User-Agent: browser name, version, language
   and platform).
 
-This is collected when a client hits a specific endpoint from
-version.monarc.lu. The IP of the requestor is not stored, but a HTTP referrer
-can contain a public or private IP.
+The timestamp of the request is also kept.
+
+The IP of the requestor is never stored.
+Of course an HTTP referrer can be an IP (public or private). And since an HTTP
+referrer can be easily spoofed, it is impossible to be completely sure if any
+derived information is actually valid.
 
 This information provides better insights into where and how MONARC is used.
+Only the CASES team has access to this database. MONARC users have always the
+choice to Opt-out.
+
+This tool has been designed to work with any software, not only MONARC.
 
 
 ## Installation
