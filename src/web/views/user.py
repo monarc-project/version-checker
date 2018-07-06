@@ -10,12 +10,6 @@ from web.forms import ProfileForm
 user_bp = Blueprint('user_bp', __name__, url_prefix='/user')
 
 
-@user_bp.route('/schemas', methods=['GET'])
-@login_required
-def schemas():
-    return render_template('user_schemas.html')
-
-
 @user_bp.route('/profile', methods=['GET'])
 @login_required
 def form():

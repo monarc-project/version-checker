@@ -1,11 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import flash, url_for, redirect
+from flask import url_for, redirect
 from flask_wtf import FlaskForm
-from wtforms import (TextField, TextAreaField, PasswordField, BooleanField,
-                     SelectField, SubmitField, validators, HiddenField,
-                     SelectMultipleField, HiddenField)
+from wtforms import (TextField, PasswordField, BooleanField,
+                     SubmitField, validators, HiddenField)
 
 from lib import misc_utils
 from web.models import User

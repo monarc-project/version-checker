@@ -15,7 +15,7 @@ from flask_sqlalchemy import SQLAlchemy
 def set_logging(log_path=None, log_level=logging.INFO, modules=(),
                 log_format='%(asctime)s %(levelname)s %(message)s'):
     if not modules:
-        modules = ('workers.fetch_cve', 'bootstrap', 'runserver', 'web',)
+        modules = ('bootstrap', 'runserver', 'web',)
     if log_path:
         if not os.path.exists(os.path.dirname(log_path)):
             os.makedirs(os.path.dirname(log_path))
