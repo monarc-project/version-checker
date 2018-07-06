@@ -107,6 +107,14 @@ The information sent by the client browser is only stored when the *check*
 endpoint is reached.
 
 
+### Query the database
+
+```bash
+curl http://127.0.0.1:5000/admin/logs/export?software=MONARC&software_version=2.5.0
+```
+
+The result will be a CSV file.
+
 
 ## License
 

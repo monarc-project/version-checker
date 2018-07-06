@@ -1,7 +1,7 @@
 
 import logging
 from flask import Blueprint, current_app, render_template, flash, redirect, \
-                  url_for
+                  url_for, request
 from flask_login import login_required, current_user
 from flask_csv import send_csv
 from werkzeug import generate_password_hash
@@ -117,15 +117,32 @@ def delete_user(user_id=None):
 @login_required
 @admin_permission.require(http_exception=403)
 def list_logs():
+    """Returns a page which lists the logs."""
     logs = models.Log.query.all()
     return render_template('admin/logs.html', logs=logs)
 
 
-@admin_bp.route('/stats/export', methods=['GET'])
+@admin_bp.route('/logs/export', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
 def export_logs_csv():
-    """Exports the stats to stats to CSV."""
-    stats = models.Log.query.all()
-    result = list(map(models.Log.dump, stats))
+    """Exports the logs CSV."""
+    time_from = request.args.get('from', None)
+    time_to = request.args.get('to', None)
+    software = request.args.get('software', None)
+    software_version = request.args.get('software_version', None)
+
+    query = models.Log.query
+    if time_from and time_to:
+        query = query.filter(models.Log.timestamp.between(time_from, time_to))
+
+    if software:
+        query = query.filter(models.Log.software==software)
+
+    if software_version:
+        query = query.filter(models.Log.software_version==software_version)
+
+    logs = query.all()
+
+    result = list(map(models.Log.dump, logs))
     return send_csv(result, 'logs.csv', models.Log.fields_export_csv())

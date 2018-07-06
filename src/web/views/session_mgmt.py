@@ -57,7 +57,7 @@ def login():
     form = SigninForm()
     if form.validate_on_submit():
         login_user_bundle(form.user)
-        return form.redirect('admin/stats')
+        return form.redirect('admin/logs')
     return render_template('login.html', form=form)
 
 
