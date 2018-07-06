@@ -50,15 +50,15 @@ def before_request():
         db.session.commit()
 
 
-@current_app.route('/login', methods=['GET', 'POST'])
+@current_app.route('/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('admin_bp.list_users'))
     form = SigninForm()
     if form.validate_on_submit():
         login_user_bundle(form.user)
-        return form.redirect('admin/logs')
-    return render_template('login.html', form=form)
+        return form.redirect()
+    return render_template('index.html', form=form)
 
 
 @current_app.route('/logout')
