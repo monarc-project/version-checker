@@ -3,7 +3,9 @@ import logging
 from flask import Blueprint, current_app, render_template, flash, redirect, \
                   url_for
 from flask_login import login_required, current_user
+from flask_csv import send_csv
 from werkzeug import generate_password_hash
+
 
 from bootstrap import db
 from web.views.common import admin_permission
@@ -111,9 +113,19 @@ def delete_user(user_id=None):
     return redirect(url_for('admin_bp.list_users'))
 
 
-@admin_bp.route('/stats', methods=['GET'])
+@admin_bp.route('/logs', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
-def list_stats():
-    stats = models.Stat.query.all()
-    return render_template('admin/stats.html', stats=stats)
+def list_logs():
+    logs = models.Log.query.all()
+    return render_template('admin/logs.html', logs=logs)
+
+
+@admin_bp.route('/stats/export', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def export_logs_csv():
+    """Exports the stats to stats to CSV."""
+    stats = models.Log.query.all()
+    result = list(map(models.Log.dump, stats))
+    return send_csv(result, 'logs.csv', models.Log.fields_export_csv())

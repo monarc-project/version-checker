@@ -19,14 +19,14 @@
     <script src="{{ url_for('static', filename='npm_components/datatables.net-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ url_for('static', filename='npm_components/lodash/lodash.min.js') }}"></script>
     <script src="{{ url_for('static', filename='npm_components/moment/min/moment.min.js') }}"></script>
-    <title>Version checker</title>
+    <title>MONARC - versions</title>
     {% endblock %}
 </head>
 {% block page_body %}
 <body>
     {% block main_menu %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-VERSION-blue">
-            <a class="navbar-brand" href="/">Version checker</a>
+            <a class="navbar-brand" href="/">MONARC - versions</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -39,7 +39,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
                             <a class="dropdown-item" href="{{ url_for('admin_bp.list_users') }}" title="Users">Users</i></a>
-                            <a class="dropdown-item" href="{{ url_for('admin_bp.list_stats') }}" title="Stats">Stats</i></a>
+                            <a class="dropdown-item" href="{{ url_for('admin_bp.list_logs') }}" title="Logs">Logs</i></a>
                         </div>
                     </li>
                     {% endif %}

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f3026b5e7287bc3d2a992b25f7d49ab52cd5cf8475b5acc601b7ec166a47b349"
+            "sha256": "2446d0c16c64459bd12e0c9a3250e76a3328b16f34682d407baf7f0b71c9f6df"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,6 +35,12 @@
             ],
             "version": "==6.7"
         },
+        "csvalidate": {
+            "hashes": [
+                "sha256:9ae2c72af8639ae556d2c3e6a5a2134058691ad4af708890a7b33e073c501cb2"
+            ],
+            "version": "==1.1.1"
+        },
         "flask": {
             "hashes": [
                 "sha256:2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48",
@@ -42,6 +48,13 @@
             ],
             "index": "pypi",
             "version": "==1.0.2"
+        },
+        "flask-csv": {
+            "hashes": [
+                "sha256:f1315c89a7efa7e842353d12796c2fdd40ee6639f8a69fb131b7e285928fa23e"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
         },
         "flask-login": {
             "hashes": [
@@ -112,6 +125,13 @@
                 "sha256:a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"
             ],
             "version": "==1.0"
+        },
+        "marshmallow": {
+            "hashes": [
+                "sha256:171f409d48b44786b7df2793cbd7f1a9062f0fe2c14d547da536b5010f671ade",
+                "sha256:c231784b5a5d2b26e50c90f3038004a3552ec27658cde6e0a5a7279d0c5a8e26"
+            ],
+            "version": "==2.15.3"
         },
         "psycopg2": {
             "hashes": [

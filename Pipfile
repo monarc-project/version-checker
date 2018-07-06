@@ -18,5 +18,6 @@ Flask-Script = "*"
 WTForms = "*"
 flask-migrate = "*"
 svgwrite = "*"
+flask-csv = "*"
 
 [dev-packages]

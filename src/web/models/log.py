@@ -1,10 +1,11 @@
 from datetime import datetime
 
+from web.models.right_mixin import RightMixin
 from bootstrap import db
 
-class Stat(db.Model):
+class Log(db.Model, RightMixin):
     """
-    Represent a stat.
+    Represent a log.
     """
     id = db.Column(db.Integer, primary_key=True)
     software = db.Column(db.String())

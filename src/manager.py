@@ -63,9 +63,9 @@ def create_admin(login, password):
 
 @manager.command
 def logs(software):
-    stats = web.models.Stat.query.filter(
+    result = web.models.Stat.query.filter(
                     web.models.Stat.software==software).all()
-    print(*stats, sep='\n')
+    print(*result, sep='\n')
 
 if __name__ == '__main__':
     manager.run()

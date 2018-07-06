@@ -7,7 +7,7 @@ from flask import (render_template, url_for, redirect, current_app, flash,
 from flask_login import login_required
 
 from bootstrap import application, db
-from web.models import Stat
+from web.models import Log
 from lib import svg
 
 logger = logging.getLogger(__name__)
@@ -69,7 +69,7 @@ def check_version(software=None):
     file_name = svg.simple_text(state, state, svg.STYLE[state])
 
     # Log some information about the client
-    stat = Stat(software=software, software_version=client_version,
+    log = Log(software=software, software_version=client_version,
                 http_referrer=request.referrer,
                 user_agent_browser=request.user_agent.browser,
                 user_agent_version=request.user_agent.version,
@@ -77,7 +77,7 @@ def check_version(software=None):
                 user_agent_platform=request.user_agent.platform,
                 timestamp=datetime.utcnow())
     try:
-        db.session.add(stat)
+        db.session.add(log)
         db.session.commit()
     except Exception as e:
         print(e)

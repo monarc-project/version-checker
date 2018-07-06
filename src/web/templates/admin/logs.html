@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-<h1>Stats</h1>
+<h1>Logs</h1>
 <div class="table-responsive-md">
     <table id="table-stats" class="table table-hover">
     <thead>
@@ -14,20 +14,20 @@
         </tr>
     </thead>
     <tbody>
-    {% for stat in stats %}
+    {% for log in logs %}
         <tr>
             <th scope="row">{{ loop.index }}</th>
-            <td>{{ stat.software }}</td>
-            <td>{{ stat.software_version }}</td>
-            <td>{{ stat.http_referrer }}</td>
-            <td class="date">{{ stat.timestamp | datetimeformat }}</td>
+            <td>{{ log.software }}</td>
+            <td>{{ log.software_version }}</td>
+            <td>{{ log.http_referrer }}</td>
+            <td class="date">{{ log.timestamp | datetimeformat }}</td>
         </tr>
     {% endfor %}
     </tbody>
     </table>
 </div>
 <br />
-<a href="#" class="btn btn-default">Export to CSV</a>
+<a href="{{ url_for('admin_bp.export_logs_csv') }}" class="btn btn-default">Export to CSV</a>
 </div>
 <script>
 $(document).ready(function() {
