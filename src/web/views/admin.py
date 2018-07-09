@@ -4,6 +4,7 @@ from flask import Blueprint, current_app, render_template, flash, redirect, \
                   url_for, request
 from flask_login import login_required, current_user
 from flask_csv import send_csv
+from sqlalchemy import desc
 from werkzeug import generate_password_hash
 
 
@@ -117,7 +118,7 @@ def delete_user(user_id=None):
 @admin_permission.require(http_exception=403)
 def list_logs():
     """Returns a page which lists the logs."""
-    logs = models.Log.query.all()
+    logs = models.Log.query.order_by(desc(models.Log.timestamp)).all()
     return render_template('admin/logs.html', logs=logs)
 
 

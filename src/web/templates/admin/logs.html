@@ -16,7 +16,7 @@
     <tbody>
     {% for log in logs %}
         <tr>
-            <th scope="row">{{ loop.index }}</th>
+            <th scope="row">{{ log.id }}</th>
             <td>{{ log.software }}</td>
             <td>{{ log.software_version }}</td>
             <td>{{ log.http_referrer }}</td>
@@ -37,8 +37,9 @@ $('#table-stats').DataTable( {
         {
             bSortable: false,
             targets: [0]
-        }
-    ]
+        },
+    ],
+    "order": [[ 4, "desc" ]]
 });
 });
 </script>
