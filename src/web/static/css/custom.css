@@ -10,7 +10,6 @@ body {
 .background {
   background: url(/static/img/bg-cases.png) no-repeat left;
   background-size: contain;
-  color: white;
 }
 img {
     padding: 5px;
