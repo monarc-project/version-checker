@@ -39,7 +39,7 @@
                             <tbody>
                             {% for software in versions %}
                                 <tr>
-                                    <th scope="row">{{ software }}</th>
+                                    <th scope="row"><a href="{{ url_for('version', software=software) }}">{{ software }}</a></th>
                                     <td>{{ versions[software]['stable'] }}</td>
                                     <td>stable</td>
                                 </tr>
