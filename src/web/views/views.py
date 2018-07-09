@@ -4,7 +4,6 @@ from datetime import datetime
 from pkg_resources import parse_version
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
-from flask_login import login_required
 
 from bootstrap import application, db
 from web.models import Log
