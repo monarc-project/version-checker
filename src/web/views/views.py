@@ -5,7 +5,7 @@ from pkg_resources import parse_version
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
 
-from bootstrap import application, db, VERSIONS
+from bootstrap import application, db, VERSIONS, CVE
 from web.models import Log
 from lib import svg
 
@@ -49,6 +49,7 @@ def check_version(software=None):
     """Checks the version of the requested softare and stores some
     information about the client."""
     state = None
+    text = None
     last_version = None
     client_version = request.args.get('version', None)
 
@@ -66,8 +67,16 @@ def check_version(software=None):
     if not state:
         state = 'unknown'
 
+    # Check if vulnerabilities in client version of the softares
+    if software in CVE.keys() and client_version:
+        if CVE[software].get(client_version, False):
+            # send the id of the CVE
+            state = 'security-update-available'
+            text = "security update available: "
+            text += ", ".join(CVE[software].get(client_version))
+
     # Generate the image to return
-    file_name = svg.simple_text(state, state, svg.STYLE[state])
+    file_name = svg.simple_text(state, svg.STYLE[state], text)
 
     if request.referrer and software:
         # Log some information about the client

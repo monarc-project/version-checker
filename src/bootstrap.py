@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask_mail import Mail
 
 try:
-    from data.software import VERSIONS
+    from data.software import VERSIONS, CVE
 except:
     VERSIONS = {'MONARC':
                     {

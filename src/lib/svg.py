@@ -19,7 +19,7 @@ STYLE = {
                 },
     "security-update-available": {
                     "text": "security update available",
-                    "rect_size": (220, 20),
+                    "rect_size": (360, 20),
                     "rect_fill": "red",
                     "paragraph_fill": "white",
                     "text_fill": "white",
@@ -34,7 +34,7 @@ STYLE = {
 }
 
 
-def simple_text(name, text, style):
+def simple_text(name, style, text=None):
     """Draw a text in a rectangle."""
     dwg = svgwrite.Drawing(name, style["rect_size"])
 
@@ -44,9 +44,11 @@ def simple_text(name, text, style):
 
     paragraph = dwg.add(dwg.g(font_size=14, font_family="DejaVu Sans",
                         fill=style["paragraph_fill"]))
-    text = dwg.text(style["text"], insert=(5, 15), font_weight='bold',
+    if not text:
+        text = style["text"]
+    text_elem = dwg.text(text, insert=(5, 15), font_weight='bold',
                         fill=style["text_fill"])
-    paragraph.add(text)
+    paragraph.add(text_elem)
 
     file_name = "{}.svg".format(name.replace(' ', '-'))
     file_path = application.config['GENERATED_SVG_FOLDER'] + file_name
