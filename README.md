@@ -53,6 +53,7 @@ $ cd version-checker/
 $ npm install
 $ pipenv install
 $ pipenv shell
+$ cp src/data/software.py.example src/data/software.py
 $ python src/manager.py db_create
 $ python src/manager.py db_init
 $ python src/manager.py create_admin <username> <password>
