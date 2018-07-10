@@ -1,0 +1,6 @@
+
+VERSIONS = {'MONARC' :
+                {
+                    'stable': '2.5.0'
+                }
+}

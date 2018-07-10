@@ -11,6 +11,15 @@ from flask_sqlalchemy import SQLAlchemy
 
 # from flask_mail import Mail
 
+try:
+    from data.software import VERSIONS
+except:
+    VERSIONS = {'MONARC':
+                    {
+                        'stable': '2.5.0'
+                    }
+    }
+
 
 def set_logging(log_path=None, log_level=logging.INFO, modules=(),
                 log_format='%(asctime)s %(levelname)s %(message)s'):

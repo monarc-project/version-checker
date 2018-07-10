@@ -5,7 +5,7 @@ from pkg_resources import parse_version
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
 
-from bootstrap import application, db
+from bootstrap import application, db, VERSIONS
 from web.models import Log
 from lib import svg
 
@@ -52,8 +52,8 @@ def check_version(software=None):
     last_version = None
     client_version = request.args.get('version', None)
 
-    if software in application.config['VERSIONS'].keys():
-        last_version = application.config['VERSIONS'][software]['stable']
+    if software in VERSIONS.keys():
+        last_version = VERSIONS[software]['stable']
 
     # Check the version of the client
     if client_version and last_version:
@@ -88,7 +88,7 @@ def check_version(software=None):
 @current_app.route('/version/<software>', methods=['GET'])
 def version(software=None):
     """Gives information about current version of a software."""
-    if software in application.config['VERSIONS'].keys():
-        return jsonify(application.config['VERSIONS'][software])
+    if software in VERSIONS.keys():
+        return jsonify(VERSIONS[software])
     else:
         return 'Unknown software.', 404

@@ -35,3 +35,5 @@ src/web/static/npm_components
 
 #src/web/public/
 src/web/public/img/*.svg
+
+src/data/software.py
