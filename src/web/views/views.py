@@ -67,22 +67,24 @@ def check_version(software=None):
     # Generate the image to return
     file_name = svg.simple_text(state, state, svg.STYLE[state])
 
-    # Log some information about the client
-    log = Log(software=software, software_version=client_version,
-                http_referrer=request.referrer,
-                user_agent_browser=request.user_agent.browser,
-                user_agent_version=request.user_agent.version,
-                user_agent_language=request.user_agent.language,
-                user_agent_platform=request.user_agent.platform,
-                timestamp=datetime.utcnow())
-    try:
-        db.session.add(log)
-        db.session.commit()
-    except Exception as e:
-        print(e)
+    if request.referrer:
+        # Log some information about the client
+        log = Log(software=software, software_version=client_version,
+                    http_referrer=request.referrer,
+                    user_agent_browser=request.user_agent.browser,
+                    user_agent_version=request.user_agent.version,
+                    user_agent_language=request.user_agent.language,
+                    user_agent_platform=request.user_agent.platform,
+                    timestamp=datetime.utcnow())
+        try:
+            db.session.add(log)
+            db.session.commit()
+        except Exception as e:
+            print(e)
 
     return send_from_directory(
-            os.path.abspath(application.config['GENERATED_SVG_FOLDER']), file_name)
+            os.path.abspath(application.config['GENERATED_SVG_FOLDER']),
+                            file_name)
 
 
 @current_app.route('/version/<software>', methods=['GET'])
