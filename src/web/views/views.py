@@ -54,6 +54,8 @@ def check_version(software=None):
 
     if software in VERSIONS.keys():
         last_version = VERSIONS[software]['stable']
+    else:
+        software = None
 
     # Check the version of the client
     if client_version and last_version:
@@ -67,7 +69,7 @@ def check_version(software=None):
     # Generate the image to return
     file_name = svg.simple_text(state, state, svg.STYLE[state])
 
-    if request.referrer:
+    if request.referrer and software:
         # Log some information about the client
         log = Log(software=software, software_version=client_version,
                     http_referrer=request.referrer,
