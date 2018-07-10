@@ -82,7 +82,7 @@ def check_version(software=None):
         print(e)
 
     return send_from_directory(
-            os.path.abspath(application.config['UPLOAD_FOLDER']), file_name)
+            os.path.abspath(application.config['GENERATED_SVG_FOLDER']), file_name)
 
 
 @current_app.route('/version/<software>', methods=['GET'])

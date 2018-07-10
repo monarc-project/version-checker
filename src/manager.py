@@ -61,11 +61,13 @@ def create_admin(login, password):
     with application.app_context():
         scripts.create_user(login, password, True)
 
+
 @manager.command
 def logs(software):
     result = web.models.Stat.query.filter(
                     web.models.Stat.software==software).all()
     print(*result, sep='\n')
+
 
 if __name__ == '__main__':
     manager.run()
