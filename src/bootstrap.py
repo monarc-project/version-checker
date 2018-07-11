@@ -12,13 +12,14 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask_mail import Mail
 
 try:
-    from data.software import VERSIONS, CVE
+    from data.software import RELEASES, CVE
 except:
-    VERSIONS = {'MONARC':
+    RELEASES = {'MONARC':
                     {
                         'stable': '2.5.0'
                     }
     }
+    CVE = {}
 
 
 def set_logging(log_path=None, log_level=logging.INFO, modules=(),

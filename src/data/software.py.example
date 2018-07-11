@@ -1,5 +1,5 @@
 
-VERSIONS = {'MONARC' :
+RELEASES = {'MONARC' :
                 {
                     'stable': '2.5.0'
                 }

@@ -7,7 +7,7 @@ from flask_principal import (Principal, AnonymousIdentity, UserNeed,
                              identity_changed, identity_loaded,
                              session_identity_loader)
 
-from bootstrap import db, application, VERSIONS
+from bootstrap import db, application, RELEASES
 from web.models import User
 from web.views.common import admin_role, api_role, login_user_bundle
 from web.forms import SigninForm
@@ -59,7 +59,7 @@ def login():
         login_user_bundle(form.user)
         return form.redirect()
     return render_template('index.html', form=form,
-                            versions=VERSIONS)
+                            releases=RELEASES)
 
 
 @current_app.route('/logout')
