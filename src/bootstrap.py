@@ -9,11 +9,10 @@ import logging
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
-# from flask_mail import Mail
-
 try:
     from data.software import RELEASES, CVE
 except:
+    # For examples, see in src/data/software.py.example
     RELEASES = {'MONARC':
                     {
                         'stable': '2.5.0'
@@ -59,7 +58,6 @@ application.config.from_pyfile(os.environ.get(
                                'APPLICATION_SETTINGS',
                                'development.cfg'), silent=False)
 db = SQLAlchemy(application)
-# mail = Mail(application)
 
 
 # Jinja filters
