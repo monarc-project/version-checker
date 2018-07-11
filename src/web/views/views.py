@@ -46,7 +46,7 @@ def handle_sqlalchemy_assertion_error(error):
 
 @current_app.route('/check/<software>', methods=['GET'])
 def check_version(software=None):
-    """Checks the version of the requested softare and stores some
+    """Checks the version of the requested software and stores some
     information about the client."""
     state = None
     text = None
@@ -67,7 +67,7 @@ def check_version(software=None):
     if not state:
         state = 'unknown'
 
-    # Check if vulnerabilities in client version of the softares
+    # Check if vulnerabilities in client version of the softwares
     if software in CVE.keys() and client_version:
         if CVE[software].get(client_version, False):
             # send the id of the CVE
