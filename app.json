@@ -1,6 +1,6 @@
 {
     "name": "version-checker",
-    "description": "Checks the version of a MONARC instance.",
+    "description": "Checks the version of a software.",
     "keywords": [
         "version",
         "software",

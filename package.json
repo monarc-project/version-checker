@@ -1,7 +1,7 @@
 {
     "name": "version-checker",
     "version": "0.0.1",
-    "description": "Checks the version of a MONARC instance.",
+    "description": "Checks the version of a software.",
     "scripts": {
         "postinstall": "cd src/web/static/ ; ln -sf ../../../node_modules npm_components"
     },

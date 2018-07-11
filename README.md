@@ -2,10 +2,10 @@
 
 ## Presentation
 
-This tool checks the version of a MONARC instance.
+This tool checks the version of a software.
 
-The goal is to reduce the problem of outdated MONARC servers. These servers are
-a potentially security problem.
+The original goal is to reduce the problem of outdated MONARC servers.
+These servers are a potentially security problem.
 
 MONARC users who open the home page in the web interface will see an image in
 the bottom left corner with the text "up-to-date" in green, "update available"
