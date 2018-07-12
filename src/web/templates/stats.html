@@ -11,6 +11,12 @@
             <canvas id="browsers-pie-chart" width="100%" height="100%"></canvas>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h2>Languages distribution</h2>
+            <canvas id="languages-pie-chart" width="100%" height="100%"></canvas>
+        </div>
+    </div>
 </div>
 <script>
 $(document).ready(function() {
@@ -52,6 +58,25 @@ $(document).ready(function() {
                         data: Object.values(browsers),
                         borderWidth: 1,
                         backgroundColor: _.times(Object.keys(browsers).length, pastelColorMaker)
+                    }]
+                }});
+        }
+    });
+
+    $.ajax({
+        url: "{{ url_for('stats_bp.languages', software=software) }}",
+        dataType: "json",
+        contentType: "application/json",
+        success: function(languages) {
+            var ctx = document.getElementById("languages-pie-chart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(languages),
+                    datasets: [{
+                        data: Object.values(languages),
+                        borderWidth: 1,
+                        backgroundColor: _.times(Object.keys(languages).length, pastelColorMaker)
                     }]
                 }});
         }

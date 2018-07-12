@@ -33,3 +33,13 @@ def browsers(software=None):
                 filter(Log.software==software, Log.user_agent_browser!=None). \
                 all()
     return jsonify(dict(result))
+
+@stats_bp.route('/<software>/languages.json', methods=['GET'])
+def languages(software=None):
+    """Returns a JSON with the repartition of languages."""
+    result = db.session.query(func.lower(Log.user_agent_language),
+                func.count(func.lower(Log.user_agent_language))). \
+                group_by(func.lower(Log.user_agent_language)). \
+                filter(Log.software==software, Log.user_agent_language!=None). \
+                all()
+    return jsonify(dict(result))
