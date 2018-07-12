@@ -17,7 +17,7 @@
     {% for log in logs %}
         <tr>
             <th scope="row">{{ log.id }}</th>
-            <td>{{ log.software }}</td>
+            <td><a href="{{ url_for('stats_bp.stats', software=log.software) }}">{{ log.software }}</a></td>
             <td>{{ log.software_version }}</td>
             <td>{{ log.http_referrer }}</td>
             <td class="date">{{ log.timestamp | datetimeformat }}</td>
