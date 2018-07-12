@@ -1,0 +1,62 @@
+{% extends "layout.html" %}}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <h2>Versions distribution</h2>
+            <canvas id="versions-pie-chart" width="100%" height="100%"></canvas>
+        </div>
+        <div class="col-md-5 offset-md-2">
+            <h2>Browsers distribution</h2>
+            <canvas id="browsers-pie-chart" width="100%" height="100%"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    function pastelColorMaker() {
+        var hue = Math.floor(Math.random() * 360);
+        return 'hsl(' + hue + ', 100%, 87.5%)';
+    }
+
+    $.ajax({
+        url: "{{ url_for('stats_bp.versions', software=software) }}",
+        dataType: "json",
+        contentType: "application/json",
+        success: function(versions) {
+            var ctx = document.getElementById("versions-pie-chart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(versions),
+                    datasets: [{
+                        data: Object.values(versions),
+                        borderWidth: 1,
+                        backgroundColor: _.times(Object.keys(versions).length, pastelColorMaker)
+                    }]
+                }});
+        }
+    });
+
+    $.ajax({
+        url: "{{ url_for('stats_bp.browsers', software=software) }}",
+        dataType: "json",
+        contentType: "application/json",
+        success: function(browsers) {
+            var ctx = document.getElementById("browsers-pie-chart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(browsers),
+                    datasets: [{
+                        data: Object.values(browsers),
+                        borderWidth: 1,
+                        backgroundColor: _.times(Object.keys(browsers).length, pastelColorMaker)
+                    }]
+                }});
+        }
+    });
+
+});
+</script>
+{% endblock %}

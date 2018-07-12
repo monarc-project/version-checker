@@ -16,10 +16,10 @@ When the home page is loaded, the browser of the user requests an image file
 from version.monarc.lu.
 The browser request tells version.monarc.lu the MONARC version which is
 currently running and it responds with the appropriate image so the user can
-see if the MONARC version is up to date. The version number sent in the request
+see if the MONARC version is up-to-date. The version number sent in the request
 is encrypted.
 
-The SVG image is rendered by version.monarc.lu. This way we are for example
+The SVG image is rendered by the server. This way we are for example
 able to write a CVE id in the image.
 
 Information from the browser request that are stored:

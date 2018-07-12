@@ -9,6 +9,7 @@ with application.app_context():
     from web import views
     application.register_blueprint(views.admin_bp)
     application.register_blueprint(views.user_bp)
+    application.register_blueprint(views.stats_bp)
 
 
 if __name__ == '__main__':
