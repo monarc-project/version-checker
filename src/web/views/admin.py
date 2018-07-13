@@ -32,7 +32,7 @@ def list_users():
 @admin_permission.require(http_exception=403)
 def form_user(user_id=None):
     """Return a form to create and edit a user."""
-    action = "Add a user"
+    action = "Create user"
     head_titles = [action]
     form = UserForm()
     if user_id is None:
@@ -118,8 +118,10 @@ def delete_user(user_id=None):
 @admin_permission.require(http_exception=403)
 def list_logs():
     """Returns a page which lists the logs."""
+    head_titles = ['Logs']
     logs = models.Log.query.order_by(desc(models.Log.timestamp)).all()
-    return render_template('admin/logs.html', logs=logs)
+    return render_template('admin/logs.html', logs=logs,
+                            head_titles=head_titles)
 
 
 @admin_bp.route('/logs/export', methods=['GET'])

@@ -47,7 +47,8 @@ def handle_sqlalchemy_assertion_error(error):
 @current_app.route('/check/<software>', methods=['GET'])
 def check_version(software=None):
     """Checks the version of the requested software and stores some
-    information about the client."""
+    information about the client.
+    Returns a SVG image."""
     state = None
     text = None
     last_version = None
@@ -100,7 +101,8 @@ def check_version(software=None):
 
 @current_app.route('/version/<software>', methods=['GET'])
 def version(software=None):
-    """Gives information about current version of a software."""
+    """Gives information about current version of a software.
+    Returns a JSON."""
     if software in RELEASES.keys():
         return jsonify(RELEASES[software])
     else:

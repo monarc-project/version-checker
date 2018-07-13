@@ -9,7 +9,7 @@ from flask_principal import (Principal, AnonymousIdentity, UserNeed,
                              session_identity_loader, Identity,
                              Permission, RoleNeed)
 
-from bootstrap import db, application, RELEASES
+from bootstrap import db, RELEASES
 from web.models import User
 from web.forms import SigninForm
 
