@@ -9,7 +9,7 @@ from werkzeug import generate_password_hash
 
 
 from bootstrap import db
-from web.views.common import admin_permission
+from web.views.session_mgmt import admin_permission
 from web import models
 from web.forms import UserForm
 

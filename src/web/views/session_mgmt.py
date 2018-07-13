@@ -2,15 +2,22 @@ import logging
 
 from datetime import datetime
 from flask import render_template, session, url_for, redirect, current_app
-from flask_login import LoginManager, logout_user, login_required, current_user
+from flask_login import (LoginManager, logout_user, login_required,
+                        current_user, login_user)
 from flask_principal import (Principal, AnonymousIdentity, UserNeed,
                              identity_changed, identity_loaded,
-                             session_identity_loader)
+                             session_identity_loader, Identity,
+                             Permission, RoleNeed)
 
 from bootstrap import db, application, RELEASES
 from web.models import User
-from web.views.common import admin_role, api_role, login_user_bundle
 from web.forms import SigninForm
+
+admin_role = RoleNeed('admin')
+api_role = RoleNeed('api')
+
+admin_permission = Permission(admin_role)
+api_permission = Permission(api_role)
 
 Principal(current_app)
 # Create a permission with a single Need, in this case a RoleNeed.
@@ -56,7 +63,9 @@ def login():
         return redirect(url_for('admin_bp.list_logs'))
     form = SigninForm()
     if form.validate_on_submit():
-        login_user_bundle(form.user)
+        login_user(form.user)
+        identity_changed.send(current_app, identity=Identity(form.user.id))
+        session_identity_loader()
         return form.redirect()
     return render_template('index.html', form=form,
                             releases=RELEASES)
