@@ -21,10 +21,12 @@
             <td class="date">{{ user.created_at | datetimeformat }}</td>
             <td class="date">{{ user.last_seen | datetimeformat }}</td>
             <td>
-                <a href="{{ url_for("admin_bp.form_user", user_id=user.id) }}"><i class="fa fa-edit"></i></a>
+                <a href="{{ url_for("admin_bp.form_user", user_id=user.id) }}"><i class="fas fa-user-edit"></i></a>
                 {% if current_user.id != user.id %}
-                    <a href="{{ url_for("admin_bp.toggle_user", user_id=user.id) }}">{% if not user.is_active  %}<i class="fa fa-unlock" title="Unblock this user" onclick="return confirm(_('You are going to unblock this user.'));"></i>{% else %}<i class="fa fa-unlock" title="Block this user" onclick="return confirm(_('You are going to block this user.'));"></i>{% endif %}</a>
-                    <a href="{{ url_for("admin_bp.delete_user", user_id=user.id) }}"><i class="fa fa-remove" aria-hidden="true" title="Delete this user" onclick="return confirm(_('You are going to delete this user.'));"></i></a>
+                    &nbsp;
+                    <a href="{{ url_for("admin_bp.toggle_user", user_id=user.id) }}">{% if not user.is_active  %}<i class="fas fa-unlock" title="Unblock this user" onclick="return confirm(_('You are going to unblock this user.'));"></i>{% else %}<i class="fas fa-lock" title="Block this user" onclick="return confirm(_('You are going to block this user.'));"></i>{% endif %}</a>
+                    &nbsp;
+                    <a href="{{ url_for("admin_bp.delete_user", user_id=user.id) }}"><i class="fas fa-user-times" aria-hidden="true" title="Delete this user" onclick="return confirm(_('You are going to delete this user.'));"></i></a>
                 {% endif %}
             </td>
         </tr>

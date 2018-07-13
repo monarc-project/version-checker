@@ -9,7 +9,7 @@
     {% block head_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='npm_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='npm_components/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='npm_components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='npm_components/@fortawesome/fontawesome-free/css/all.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
     {% endblock %}
     <script src="{{ url_for('static', filename='npm_components/jquery/dist/jquery.min.js') }}"></script>
@@ -19,14 +19,14 @@
     <script src="{{ url_for('static', filename='npm_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='npm_components/datatables.net/js/jquery.dataTables.js') }}"></script>
     <script src="{{ url_for('static', filename='npm_components/datatables.net-bs4/js/dataTables.bootstrap4.js') }}"></script>
-    <title>MONARC - versions</title>
+    <title>Versions</title>
     {% endblock %}
 </head>
 {% block page_body %}
 <body {% if request.endpoint == 'login' %}class="background"{% endif %}>
     {% block main_menu %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-VERSION-blue">
-            <a class="navbar-brand" href="/">MONARC - versions</a>
+            <a class="navbar-brand" href="/">Versions</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +36,7 @@
                     {% if current_user.is_authenticated %}
                     {% if current_user.is_admin %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i></a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
                             <a class="dropdown-item" href="{{ url_for('admin_bp.list_users') }}" title="Users">Users</i></a>
                             <a class="dropdown-item" href="{{ url_for('admin_bp.list_logs') }}" title="Logs">Logs</i></a>
@@ -44,7 +44,7 @@
                     </li>
                     {% endif %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownUser">
                             <span class="dropdown-item"><div class="text-muted">Signed in as</div><div class="font-weight-bold">{{ current_user.login }}</div></span>
                             <div class="dropdown-divider"></div>
