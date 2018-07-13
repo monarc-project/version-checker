@@ -124,6 +124,21 @@ def list_logs():
                             head_titles=head_titles)
 
 
+@admin_bp.route('/log/delete/<int:log_id>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def delete_log(log_id=None):
+    """Delete a log."""
+    log = models.Log.query.filter(models.Log.id == log_id).first()
+    if log:
+        db.session.delete(log)
+        db.session.commit()
+        flash('Log deleted.', 'success')
+    else:
+        flash('Log not found.', 'success')
+    return redirect(url_for('admin_bp.list_logs'))
+
+
 @admin_bp.route('/logs/export', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)

@@ -12,6 +12,7 @@
             <th>HTTP referer</th>
             <th>Borwser</th>
             <th>Timestamp</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
             <td>{{ log.http_referrer }}</td>
             <td>{{ log.user_agent_browser }}</td>
             <td class="date">{{ log.timestamp | datetimeformat }}</td>
+            <td><a href="{{ url_for("admin_bp.delete_log", log_id=log.id) }}"><i class="fas fa-times" aria-hidden="true" title="Delete this log entry" onclick="return confirm(_('You are going to delete this log entry.'));"></i></a></td>
         </tr>
     {% endfor %}
     </tbody>
