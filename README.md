@@ -4,8 +4,8 @@
 
 This tool checks the version of a software.
 
-The original goal is to reduce the problem of outdated MONARC servers.
-These servers are a potentially security problem.
+The original goal of this project was to reduce the problem of outdated MONARC
+servers. These servers are a potentially security problem.
 
 MONARC users who open the home page in the web interface will see an image in
 the bottom left corner with the text "up-to-date" in green, "update available"
@@ -46,6 +46,25 @@ This tool has been designed to work with any software, not only MONARC.
 ## Installation
 
 ### Deploy locally
+
+#### Requirements
+
+Install PostgreSQL and NPM:
+
+```bash
+$ sudo apt install postgresql npm
+```
+
+Install [pyenv](https://github.com/pyenv/pyenv),
+then [pipsi](https://github.com/mitsuhiko/pipsi). Then:
+
+```bash
+$ pyenv install 3.7.0
+$ pipsi install pipenv
+```
+
+
+Installation and configuration of version-checker:
 
 ```bash
 $ git clone https://github.com/monarc-project/version-checker.git
