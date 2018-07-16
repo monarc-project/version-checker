@@ -54,7 +54,8 @@ $ python src/manager.py db_init
 $ python src/manager.py create_admin <username> <password>
 ```
 
-Run the server:
+
+# Run the server
 
 ```bash
 $ python src/runserver.py
