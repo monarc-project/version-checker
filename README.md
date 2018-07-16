@@ -43,6 +43,11 @@ are stored:
 The information sent by the client browser is only stored when the *check*
 endpoint is reached.
 
+The IP of the requestor is not stored. Of course an HTTP referrer can be an
+IP (public or private). And since an HTTP referrer can be easily spoofed, it
+is impossible to be completely sure if any derived information is actually
+valid.
+
 
 ### Asking about version information for a software
 
