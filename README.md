@@ -48,7 +48,9 @@ This tool has been designed to work with any software, not only MONARC.
 For installation guides see [INSTALL](INSTALL).
 
 
-#### Query the database with the command line tool
+## Usage
+
+### Query the database with the command line tool
 
 ```bash
 $ heroku run python src/manager.py logs MONARC
@@ -66,8 +68,6 @@ HTTP Referrer: None
 Browser: firefox
 Timestamp: 2018-07-05 12:08:09.234619
 ```
-
-## Usage
 
 ### Checking the version of a software
 
