@@ -12,9 +12,6 @@ $ export APPLICATION_SETTINGS=prod.cfg
 
 # Configure mod_wsgi for Python 3.6
 
-```bash
-$ sudo apt install apache2 libapache2-mod-wsgi-py3
-```
 
 ```bash
 $ pyenv install 3.6.6
@@ -25,6 +22,31 @@ $ pipenv shell
 $ python src/manager.py db_create
 $ python src/manager.py db_init
 ```
+
+```bash
+$ sudo apt install apache2 libapache2-mod-wsgi-py3
+$ cp webserver.wsgi.example webserver.wsgi
+```
+
+Edit webserver.wsgi accordingly with the path of your Python virtualenv. Here
+is an example:
+
+```python
+#! /usr/bin/env python
+
+import sys
+
+sys.path.insert(0, '/var/wwww/version.monarc.lu/src/')
+
+python_home = '/home/user/.local/share/virtualenvs/version-checker--AuKpeUm'
+
+activate_this = python_home + '/bin/activate_this.py'
+with open(activate_this) as file_:
+    exec(file_.read(), dict(__file__=activate_this))
+
+from runserver import application
+```
+
 
 # Configuration of a VirtualHost
 
