@@ -1,17 +1,20 @@
 
-Follow the instructions in [INSTALL.UBUNTU1804.md](INSTALL.UBUNTU1804.md)
+Follow the instructions in [INSTALL.Ubuntu1804.md](INSTALL.Ubuntu1804.md)
 but be careful to use Python 3.6 for mod_wsgi.
 
 
 # Configure the application for a production environment
 
+Specify the database username and password in the configuration file:
+
 ```bash
 $ cp src/instance/production.cfg  src/instance/prod.cfg
-$ export APPLICATION_SETTINGS=prod.cfg
 ```
 
-# Configure mod_wsgi for Python 3.6
+You will set this later in an environment variable for the VirtualHost.
 
+
+# Configure mod_wsgi for Python 3.6
 
 ```bash
 $ pyenv install 3.6.6
@@ -68,6 +71,8 @@ from runserver import application
         Options Indexes FollowSymLinks
         Require all granted
     </Directory>
+
+    SetEnv APPLICATION_SETTINGS prod.cfg
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
