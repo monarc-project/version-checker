@@ -2,6 +2,7 @@ import os
 import logging
 from datetime import datetime
 from pkg_resources import parse_version
+from base64 import b64decode
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
 
@@ -48,11 +49,15 @@ def handle_sqlalchemy_assertion_error(error):
 def check_version(software=None):
     """Checks the version of the requested software and stores some
     information about the client.
+
     Returns a SVG image."""
     state = None
     text = None
     last_version = None
+    client_timestamp = request.args.get('timestamp', None)
     client_version = request.args.get('version', None)
+    if client_version:
+        client_version = b64decode(client_version).decode()
 
     if software in RELEASES.keys():
         last_version = RELEASES[software]['stable']
@@ -78,8 +83,9 @@ def check_version(software=None):
 
     # Generate the image to return
     file_name = svg.simple_text(state, svg.STYLE[state], text)
-    if request.referrer and software:
-        # Log some information about the client
+
+    # Log some information about the client
+    if request.referrer and software and client_timestamp:
         log = Log(software=software, software_version=client_version,
                     http_referrer=request.referrer,
                     user_agent_browser=request.user_agent.browser,
@@ -102,6 +108,7 @@ def check_version(software=None):
 @current_app.route('/version/<software>', methods=['GET'])
 def version(software=None):
     """Gives information about current version of a software.
+
     Returns a JSON."""
     if software in RELEASES.keys():
         return jsonify(RELEASES[software])
