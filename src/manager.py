@@ -64,8 +64,8 @@ def create_admin(login, password):
 
 @manager.command
 def logs(software):
-    result = web.models.Stat.query.filter(
-                    web.models.Stat.software==software).all()
+    result = web.models.Log.query.filter(
+                    web.models.Log.software==software).all()
     print(*result, sep='\n')
 
 
