@@ -36,7 +36,7 @@ src/web/static/npm_components
 #src/web/public/
 src/web/public/img/*.svg
 
-
+src/instance/production.cfg
 src/data/software.py
 src/data/privatekey.pem
 

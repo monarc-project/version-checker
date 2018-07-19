@@ -22,6 +22,8 @@ SECURITY_PASSWORD_SALT = os.urandom(12)
 
 GENERATED_SVG_FOLDER = './src/web/public/img/'
 
+RSA_PRIVATE_KEY = './src/data/privatekey.pem'
+
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
 MAIL_SERVER = 'localhost'
