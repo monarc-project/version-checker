@@ -40,7 +40,7 @@ $ cp src/data/software.py.example src/data/software.py
 Configure the connection to the database and initialize it:
 
 ```bash
-$ cp src/instance/production.cfg  src/instance/prod.cfg
+$ cp src/instance/production.cfg.example  src/instance/production.cfg
 $ vim src/instance/prod.cfg
 $ export APPLICATION_SETTINGS=prod.cfg
 $ sudo -u postgres createuser <db-user> --createdb
@@ -60,4 +60,3 @@ $ python src/manager.py create_admin <username> <password>
 ```bash
 $ python src/runserver.py
 ```
-

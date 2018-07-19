@@ -8,7 +8,7 @@ but be careful to use Python 3.6 for mod_wsgi.
 Specify the database username and password in the configuration file:
 
 ```bash
-$ cp src/instance/production.cfg  src/instance/prod.cfg
+$ cp src/instance/production.cfg.example  src/instance/production.cfg
 ```
 
 You will set this later in an environment variable for the VirtualHost.
