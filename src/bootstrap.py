@@ -8,6 +8,9 @@ import errno
 import logging
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA256
 
 try:
     from data.software import RELEASES, CVE
@@ -74,6 +77,11 @@ application.jinja_env.filters['datetimeformat'] = datetimeformat
 
 # create_directory(application.config['GENERATED_SVG_FOLDER'])
 
+CIPHER = None
+with open(application.config['RSA_PRIVATE_KEY'], 'rb') as priv_key:
+    rsa_private_key = priv_key.read()
+    private_key = RSA.importKey(rsa_private_key)
+    CIPHER = PKCS1_OAEP.new(private_key, hashAlgo=SHA256)
 
 def populate_g():
     from flask import g

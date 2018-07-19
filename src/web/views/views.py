@@ -6,7 +6,7 @@ from base64 import b64decode
 from flask import (render_template, url_for, redirect, current_app, flash,
                   send_from_directory, request, jsonify)
 
-from bootstrap import application, db, RELEASES, CVE
+from bootstrap import application, db, RELEASES, CVE, CIPHER
 from web.models import Log
 from lib import svg
 
@@ -56,8 +56,13 @@ def check_version(software=None):
     last_version = None
     client_timestamp = request.args.get('timestamp', None)
     client_version = request.args.get('version', None)
+
     if client_version:
-        client_version = b64decode(client_version).decode()
+        try:
+            client_version = CIPHER.decrypt(b64decode(client_version)).decode()
+        except Exception as e:
+            print(e)
+            client_version = None
 
     if software in RELEASES.keys():
         last_version = RELEASES[software]['stable']

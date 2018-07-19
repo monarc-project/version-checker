@@ -19,5 +19,6 @@ WTForms = "*"
 flask-migrate = "*"
 svgwrite = "*"
 flask-csv = "*"
+pycrypto = "*"
 
 [dev-packages]
