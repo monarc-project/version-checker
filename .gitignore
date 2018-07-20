@@ -8,20 +8,23 @@ syntax: glob
 
 *.mo
 
+
 # Emacs
 eproject.cfg
 *#
 
+
 # Temporary files (vim backups)
 *.swp
+
 
 # Log files:
 *.log
 
+
 # Vagrant:
 .vagrant/
 
-var/log/
 
 # Virtualenv
 venv
@@ -29,10 +32,14 @@ build
 
 .python-version
 
-# js and node files
+
+# JavaScript files
 node_modules
 src/web/static/npm_components
 
+
+# Application resource files
+var/log/
 #src/web/public/
 src/web/public/img/*.svg
 
