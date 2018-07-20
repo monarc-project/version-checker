@@ -1,3 +1,4 @@
+from collections import Counter
 from flask import Blueprint, render_template, jsonify
 from sqlalchemy import func
 
@@ -18,11 +19,16 @@ def stats(software=None):
 def versions(software=None):
     """Returns a JSON with the repartition of versions."""
     result = db.session.query(func.lower(Log.software_version),
-                func.count(func.lower(Log.software_version))). \
-                group_by(func.lower(Log.software_version)). \
+                Log.http_referrer). \
+                group_by(func.lower(Log.software_version), Log.http_referrer). \
                 filter(Log.software==software, Log.software_version!=None). \
                 all()
-    return jsonify(dict(result))
+
+    count = Counter()
+    for version, http_referrer in result:
+        count[version] += 1
+
+    return jsonify(dict(count))
 
 @stats_bp.route('/<software>/browsers.json', methods=['GET'])
 def browsers(software=None):
