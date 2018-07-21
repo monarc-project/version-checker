@@ -2,7 +2,7 @@ from collections import Counter
 from flask import Blueprint, render_template, jsonify
 from sqlalchemy import func
 
-from bootstrap import db
+from bootstrap import db, RELEASES
 from web.models import Log
 
 stats_bp = Blueprint('stats_bp', __name__, url_prefix='/stats')
@@ -12,6 +12,7 @@ stats_bp = Blueprint('stats_bp', __name__, url_prefix='/stats')
 def stats(software=None):
     head_titles = ['Statistics for', software]
     return render_template('stats.html', software=software,
+                            last_release=RELEASES[software]['stable'],
                             head_titles=head_titles)
 
 

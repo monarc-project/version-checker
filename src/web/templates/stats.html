@@ -3,6 +3,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    Latest release: {{ last_release }}<br />
+                    {{ software }} on the <a href="https://open-source-security-software.net/project/{{ software }}">Open Source Security Software</a> directory.
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
             <h2>Versions distribution</h2>
             <canvas id="versions-pie-chart" width="100%" height="100%"></canvas>
             <p class="text-justify">This graph provides <b>an overview</b> of the versions of {{ software }} instances deployed around the world. It cannot be considered as reliable.</p>
