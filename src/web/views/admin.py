@@ -114,7 +114,7 @@ def delete_user(user_id=None):
     return redirect(url_for('admin_bp.list_users'))
 
 
-@admin_bp.route('/logs', defaults={'per_page': '50'}, methods=['GET'])
+@admin_bp.route('/logs', defaults={'per_page': '20'}, methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
 def list_logs(per_page):
@@ -125,7 +125,7 @@ def list_logs(per_page):
 
     page, per_page, offset = get_page_args()
     pagination = Pagination(page=page, total=logs.count(),
-                            css_framework='bootstrap3',
+                            css_framework='bootstrap4',
                             search=False, record_name='logs',
                             per_page=per_page)
 
