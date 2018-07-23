@@ -20,5 +20,6 @@ flask-migrate = "*"
 svgwrite = "*"
 flask-csv = "*"
 pycryptodome = "*"
+flask-paginate = "*"
 
 [dev-packages]

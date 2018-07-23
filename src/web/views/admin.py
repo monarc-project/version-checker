@@ -3,6 +3,7 @@ import logging
 from flask import Blueprint, current_app, render_template, flash, redirect, \
                   url_for, request
 from flask_login import login_required, current_user
+from flask_paginate import Pagination, get_page_args
 from flask_csv import send_csv
 from sqlalchemy import desc
 from werkzeug import generate_password_hash
@@ -113,14 +114,24 @@ def delete_user(user_id=None):
     return redirect(url_for('admin_bp.list_users'))
 
 
-@admin_bp.route('/logs', methods=['GET'])
+@admin_bp.route('/logs', defaults={'per_page': '50'}, methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
-def list_logs():
+def list_logs(per_page):
     """Returns a page which lists the logs."""
     head_titles = ['Logs']
-    logs = models.Log.query.order_by(desc(models.Log.timestamp)).all()
-    return render_template('admin/logs.html', logs=logs,
+
+    logs = models.Log.query.order_by(desc(models.Log.timestamp))
+
+    page, per_page, offset = get_page_args()
+    pagination = Pagination(page=page, total=logs.count(),
+                            css_framework='bootstrap3',
+                            search=False, record_name='logs',
+                            per_page=per_page)
+
+    return render_template('admin/logs.html',
+                            logs=logs.offset(offset).limit(per_page),
+                            pagination=pagination,
                             head_titles=head_titles)
 
 
