@@ -6,6 +6,7 @@
 import os
 import errno
 import logging
+import flask_restless
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from Crypto.PublicKey import RSA
@@ -78,6 +79,8 @@ application.jinja_env.filters['datetimeformat'] = datetimeformat
 # set_logging(application.config['LOG_PATH'])
 
 # create_directory(application.config['GENERATED_SVG_FOLDER'])
+
+manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
 
 CIPHER = None
 with open(application.config['RSA_PRIVATE_KEY'], 'rb') as priv_key:

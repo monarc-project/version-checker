@@ -11,6 +11,9 @@ with application.app_context():
     application.register_blueprint(views.user_bp)
     application.register_blueprint(views.stats_bp)
 
+    # API v1
+    application.register_blueprint(views.api.v1.blueprint_log)
+
 
 if __name__ == '__main__':
     application.run(host=application.config['HOST'],
