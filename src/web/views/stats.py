@@ -25,7 +25,8 @@ def versions(software=None):
                 Log.http_referrer, Log.timestamp). \
                 group_by(func.lower(Log.software_version), Log.http_referrer,
                             Log.timestamp). \
-                filter(Log.software==software, Log.software_version!=None). \
+                filter(Log.software==software, Log.software_version!=None
+                        , Log.software_version!=''). \
                 all()
 
     dic = defaultdict(list)
