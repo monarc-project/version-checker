@@ -121,16 +121,34 @@ def list_logs(per_page):
     """Returns a page which lists the logs."""
     head_titles = ['Logs']
 
-    logs = models.Log.query.order_by(desc(models.Log.timestamp))
+    time_from = request.args.get('from', None)
+    time_to = request.args.get('to', None)
+    software = request.args.get('software', None)
+    software_version = request.args.get('software_version', None)
+    http_referrer = request.args.get('http_referrer', None)
+
+    query = models.Log.query.order_by(desc(models.Log.timestamp))
+    if time_from and time_to:
+        query = query.filter(models.Log.timestamp.between(time_from, time_to))
+
+    if software:
+        query = query.filter(models.Log.software==software)
+
+    if software_version:
+        query = query.filter(models.Log.software_version==software_version)
+
+    if http_referrer:
+        query = query.filter(models.Log.http_referrer. \
+                                            like('%{}%'.format(http_referrer)))
 
     page, per_page, offset = get_page_args()
-    pagination = Pagination(page=page, total=logs.count(),
+    pagination = Pagination(page=page, total=query.count(),
                             css_framework='bootstrap4',
                             search=False, record_name='logs',
                             per_page=per_page)
 
     return render_template('admin/logs.html',
-                            logs=logs.offset(offset).limit(per_page),
+                            logs=query.offset(offset).limit(per_page),
                             pagination=pagination,
                             head_titles=head_titles)
 
