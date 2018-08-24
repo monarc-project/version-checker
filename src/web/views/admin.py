@@ -121,11 +121,11 @@ def list_logs(per_page):
     """Returns a page which lists the logs."""
     head_titles = ['Logs']
 
-    time_from = request.args.get('from', None)
-    time_to = request.args.get('to', None)
-    software = request.args.get('software', None)
-    software_version = request.args.get('software_version', None)
-    http_referrer = request.args.get('http_referrer', None)
+    time_from = request.args.get('from', '')
+    time_to = request.args.get('to', '')
+    software = request.args.get('software', '')
+    software_version = request.args.get('software_version', '')
+    http_referrer = request.args.get('http_referrer', '')
 
     query = models.Log.query.order_by(desc(models.Log.timestamp))
     if time_from and time_to:
@@ -150,7 +150,10 @@ def list_logs(per_page):
     return render_template('admin/logs.html',
                             logs=query.offset(offset).limit(per_page),
                             pagination=pagination,
-                            head_titles=head_titles)
+                            head_titles=head_titles,
+                            software=software,
+                            software_version=software_version,
+                            http_referrer=http_referrer)
 
 
 @admin_bp.route('/log/delete/<int:log_id>', methods=['GET'])

@@ -1,47 +1,69 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
-    <h1>Logs</h1>
+<div class="container-fluid">
     <div class="row">
-        <div class="col">
+        <div class="col-md-8 offset-md-1">
+            <h1>Logs</h1>
             {{ pagination.info }}
         </div>
     </div>
-    <div class="table-responsive-md">
-        <table id="table-stats" class="table table-hover">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Software</th>
-                <th>Software version</th>
-                <th>HTTP referer</th>
-                <th>Browser</th>
-                <th>Timestamp</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for log in logs %}
-            <tr>
-                <th scope="row">{{ log.id }}</th>
-                <td><a href="{{ url_for('stats_bp.stats', software=log.software) }}">{{ log.software }}</a></td>
-                <td>{{ log.software_version }}</td>
-                <td>{{ log.http_referrer }}</td>
-                <td>{{ log.user_agent_browser }}</td>
-                <td class="date">{{ log.timestamp | datetimeformat }}</td>
-                <td><a href="{{ url_for("admin_bp.delete_log", log_id=log.id) }}"><i class="fas fa-times" aria-hidden="true" title="Delete this log entry" onclick="return confirm(_('You are going to delete this log entry.'));"></i></a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        </table>
-    </div>
     <div class="row">
-        <div class="col">
-            {{ pagination.links }}
+        <div class="col-md-8 offset-md-1">
+            <div class="table-responsive-md">
+                <table id="table-stats" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Software</th>
+                        <th>Software version</th>
+                        <th>HTTP referer</th>
+                        <th>Browser</th>
+                        <th>Timestamp</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <th scope="row">{{ log.id }}</th>
+                        <td><a href="{{ url_for('stats_bp.stats', software=log.software) }}">{{ log.software }}</a></td>
+                        <td>{{ log.software_version }}</td>
+                        <td>{{ log.http_referrer }}</td>
+                        <td>{{ log.user_agent_browser }}</td>
+                        <td class="date">{{ log.timestamp | datetimeformat }}</td>
+                        <td><a href="{{ url_for("admin_bp.delete_log", log_id=log.id) }}"><i class="fas fa-times" aria-hidden="true" title="Delete this log entry" onclick="return confirm(_('You are going to delete this log entry.'));"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-2 offset-md-1">
+            <h2>Search</h2>
+            <form action="/admin/logs" method="GET">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="software" placeholder="Software name" value="{{ software }}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="software_version" placeholder="Software version" value="{{ software_version }}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="http_referrer" placeholder="HTTP referrer" value="{{ http_referrer }}">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
         </div>
     </div>
-    <br />
-    <a href="{{ url_for('admin_bp.export_logs_csv') }}" class="btn btn-default">Export to CSV</a>
+
+
+
+    <div class="row">
+        <div class="col-md-8 offset-md-1">
+            {{ pagination.links }}
+            <br />
+            <a href="{{ url_for('admin_bp.export_logs_csv') }}" class="btn btn-default">Export to CSV</a>
+        </div>
+    </div>
 </div>
 <script>
 $(document).ready(function() {
