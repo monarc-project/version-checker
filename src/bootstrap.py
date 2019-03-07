@@ -7,6 +7,7 @@ import os
 import errno
 import logging
 import flask_restless
+from contextlib import contextmanager
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from Crypto.PublicKey import RSA
@@ -24,6 +25,18 @@ except:
     }
     CVE = {}
 
+
+@contextmanager
+def open_r_error(filename, mode="r"):
+    try:
+        f = open(filename, mode)
+    except IOError as err:
+        yield None, err
+    else:
+        try:
+            yield f, None
+        finally:
+            f.close()
 
 def set_logging(log_path=None, log_level=logging.INFO, modules=(),
                 log_format='%(asctime)s %(levelname)s %(message)s'):
@@ -83,10 +96,13 @@ application.jinja_env.filters['datetimeformat'] = datetimeformat
 manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
 
 CIPHER = None
-with open(application.config['RSA_PRIVATE_KEY'], 'rb') as priv_key:
-    rsa_private_key = priv_key.read()
-    private_key = RSA.import_key(rsa_private_key)
-    CIPHER = PKCS1_OAEP.new(private_key, hashAlgo=SHA256)
+with open_r_error(application.config['RSA_PRIVATE_KEY'], 'rb') as (priv_key, err):
+    if err:
+        CIPHER = None
+    else:
+        rsa_private_key = priv_key.read()
+        private_key = RSA.import_key(rsa_private_key)
+        CIPHER = PKCS1_OAEP.new(private_key, hashAlgo=SHA256)
 
 
 def populate_g():
