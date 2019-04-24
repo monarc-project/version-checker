@@ -21,5 +21,6 @@ flask-csv = "*"
 pycryptodome = "*"
 flask-paginate = "*"
 flask-restless = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
