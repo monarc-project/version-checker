@@ -1,6 +1,6 @@
 
 Follow the instructions in [INSTALL.Ubuntu1804.md](INSTALL.Ubuntu1804.md)
-but be careful to use Python 3.6 for mod_wsgi.
+but be careful to use Python 3.8 for mod_wsgi.
 
 
 # Configure the application for a production environment
@@ -14,11 +14,11 @@ $ cp src/instance/production.cfg.example  src/instance/production.cfg
 You will set this later in an environment variable for the VirtualHost.
 
 
-# Configure mod_wsgi for Python 3.6
+# Configure mod_wsgi for Python 3.8
 
 ```bash
-$ pyenv install 3.6.6
-$ pyenv global 3.6.6
+$ pyenv install 3.8.7
+$ pyenv global 3.8.7
 $ cd /var/wwww/version.monarc.lu/
 $ pipenv install
 $ pipenv shell

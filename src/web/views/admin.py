@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from flask_paginate import Pagination, get_page_args
 from flask_csv import send_csv
 from sqlalchemy import desc
-from werkzeug import generate_password_hash
+from werkzeug.security import generate_password_hash
 
 
 from bootstrap import db
