@@ -1,5 +1,6 @@
 import os
 import logging
+import urllib.parse
 from datetime import datetime
 from pkg_resources import parse_version
 from base64 import b64decode
@@ -54,15 +55,19 @@ def check_version(software=None):
     state = None
     text = None
     last_version = None
-    client_timestamp = request.args.get('timestamp', None)
-    client_version = request.args.get('version', None)
 
-    if client_version:
-        try:
-            client_version = CIPHER.decrypt(b64decode(client_version)).decode()
-        except Exception as e:
-            print(e)
-            client_version = None
+    if request.data:
+        client_version = urllib.parse.unquote(request.json.get('version', None))
+        client_timestamp = request.json.get('timestamp', None)
+    else:
+        client_timestamp = request.args.get('timestamp', None)
+        client_version = request.args.get('version', None)
+
+        if client_version:
+            try:
+                client_version = CIPHER.decrypt(b64decode(client_version)).decode()
+            except Exception as e:
+                client_version = None
 
     if software in RELEASES.keys():
         last_version = RELEASES[software]['stable']
@@ -90,14 +95,14 @@ def check_version(software=None):
     file_name = svg.simple_text(state, svg.STYLE[state], text)
 
     # Log some information about the client
-    if request.referrer and software and client_timestamp:
+    if software and client_timestamp:
         log = Log(software=software, software_version=client_version,
-                    http_referrer=request.referrer,
+                    http_referrer=request.referrer or '',
                     user_agent_browser=request.user_agent.browser,
                     user_agent_version=request.user_agent.version,
                     # user_agent_language=request.user_agent.language,
                     user_agent_language=request.accept_languages.best,
-                    user_agent_platform=request.user_agent.platform,
+                    user_agent_platform=request.user_agent.platform if request.referrer else request.user_agent.string,
                     timestamp=datetime.utcnow())
         try:
             db.session.add(log)
