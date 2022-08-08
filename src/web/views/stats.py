@@ -1,10 +1,13 @@
 from collections import Counter
 from collections import defaultdict
 from operator import itemgetter
-from flask import Blueprint, render_template, jsonify
-from sqlalchemy import func
 
-from bootstrap import db, RELEASES
+from bootstrap import db
+from bootstrap import RELEASES
+from flask import Blueprint
+from flask import jsonify
+from flask import render_template
+from sqlalchemy import func
 from web.models import Log
 
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
@@ -31,7 +34,7 @@ def versions(software=None):
         .group_by(func.lower(Log.software_version), Log.http_referrer, Log.timestamp)
         .filter(
             Log.software == software,
-            Log.software_version != None,
+            Log.software_version != None,  # noqa
             Log.software_version != "",
         )
         .all()
@@ -42,7 +45,7 @@ def versions(software=None):
         dic[http_referrer].append((version, timestamp))
 
     count = Counter()
-    for http_referrer, versions in dic.items():
+    for _http_referrer, versions in dic.items():
         most_recent_version = max(versions, key=itemgetter(1))[0]
         count[most_recent_version] += 1
 
@@ -58,7 +61,7 @@ def browsers(software=None):
             func.count(func.lower(Log.user_agent_browser)),
         )
         .group_by(func.lower(Log.user_agent_browser))
-        .filter(Log.software == software, Log.user_agent_browser != None)
+        .filter(Log.software == software, Log.user_agent_browser != None)  # noqa
         .all()
     )
     return jsonify(dict(result))
@@ -73,7 +76,7 @@ def languages(software=None):
             func.count(func.lower(Log.user_agent_language)),
         )
         .group_by(func.lower(Log.user_agent_language))
-        .filter(Log.software == software, Log.user_agent_language != None)
+        .filter(Log.software == software, Log.user_agent_language != None)  # noqa
         .all()
     )
     return jsonify(dict(result))

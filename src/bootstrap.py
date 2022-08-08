@@ -1,18 +1,16 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -
-
 # required imports and code exection for basic functionning
-
-import os
 import errno
 import logging
+import os
 from contextlib import contextmanager
+
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP
-from Crypto.Hash import SHA256
 
 try:
     from data.software import RELEASES, CVE
@@ -26,7 +24,7 @@ except Exception:
 def open_r_error(filename, mode="r"):
     try:
         f = open(filename, mode)
-    except IOError as err:
+    except OSError as err:
         yield None, err
     else:
         try:

@@ -1,8 +1,6 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from .user import User
 from .log import Log
+from .user import User
 
 
 __all__ = ["User", "Stat"]

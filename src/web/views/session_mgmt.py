@@ -1,29 +1,29 @@
 import logging
-
 from datetime import datetime
-from flask import render_template, session, url_for, redirect, current_app
-from flask_login import (
-    LoginManager,
-    logout_user,
-    login_required,
-    current_user,
-    login_user,
-)
-from flask_principal import (
-    Principal,
-    AnonymousIdentity,
-    UserNeed,
-    identity_changed,
-    identity_loaded,
-    session_identity_loader,
-    Identity,
-    Permission,
-    RoleNeed,
-)
 
-from bootstrap import db, RELEASES
-from web.models import User
+from bootstrap import db
+from bootstrap import RELEASES
+from flask import current_app
+from flask import redirect
+from flask import render_template
+from flask import session
+from flask import url_for
+from flask_login import current_user
+from flask_login import login_required
+from flask_login import login_user
+from flask_login import LoginManager
+from flask_login import logout_user
+from flask_principal import AnonymousIdentity
+from flask_principal import Identity
+from flask_principal import identity_changed
+from flask_principal import identity_loaded
+from flask_principal import Permission
+from flask_principal import Principal
+from flask_principal import RoleNeed
+from flask_principal import session_identity_loader
+from flask_principal import UserNeed
 from web.forms import SigninForm
+from web.models import User
 
 admin_role = RoleNeed("admin")
 api_role = RoleNeed("api")
@@ -59,7 +59,7 @@ def on_identity_loaded(sender, identity):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.filter(User.id == user_id, User.is_active == True).first()
+    return User.query.filter(User.id == user_id, User.is_active == True).first()  # noqa
 
 
 @current_app.before_request

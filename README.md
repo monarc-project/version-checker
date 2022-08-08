@@ -97,10 +97,15 @@ curl http://127.0.0.1:5000/admin/logs/export?software=MONARC&software_version=2.
 The result will be a CSV file.
 
 
+## Contributing
+
+Please read the [CONTRIBUTING](CONTRIBUTING.md) instructions.
+
+
 ## License
 
 This software is licensed under
 [GNU Affero General Public License version 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
-- Copyright (C) 2018-2021 Cédric Bonhomme
-- Copyright (C) 2018-2021 SMILE gie securitymadein.lu
+- Copyright (C) 2018-2022 Cédric Bonhomme
+- Copyright (C) 2018-2022 SECURITYMADEIN.LU

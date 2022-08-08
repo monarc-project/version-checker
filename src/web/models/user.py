@@ -1,10 +1,10 @@
 import re
 from datetime import datetime
+
+from bootstrap import db
 from flask_login import UserMixin
 from sqlalchemy.orm import validates
 from werkzeug.security import check_password_hash
-
-from bootstrap import db
 
 
 class User(db.Model, UserMixin):

@@ -9,4 +9,3 @@ $ heroku run init
 $ heroku run python src/manager.py create_admin <username> <password>
 $ heroku ps:scale web=1
 ```
-

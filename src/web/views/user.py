@@ -1,10 +1,14 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
-from flask_login import login_required, current_user
-from werkzeug.security import generate_password_hash
-
 from bootstrap import db
-from web.models import User
+from flask import Blueprint
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import url_for
+from flask_login import current_user
+from flask_login import login_required
 from web.forms import ProfileForm
+from web.models import User
+from werkzeug.security import generate_password_hash
 
 
 user_bp = Blueprint("user_bp", __name__, url_prefix="/user")
@@ -37,5 +41,5 @@ def process_form():
     if form.password.data:
         user.pwdhash = generate_password_hash(form.password.data)
     db.session.commit()
-    flash("User {} successfully updated.".format(form.login.data), "success")
+    flash(f"User {form.login.data} successfully updated.", "success")
     return redirect(url_for("admin_bp.form_user", user_id=user.id))

@@ -1,23 +1,25 @@
-import os
 import logging
+import os
 import urllib.parse
-from datetime import datetime
-from pkg_resources import parse_version
 from base64 import b64decode
-from flask import (
-    render_template,
-    url_for,
-    redirect,
-    current_app,
-    flash,
-    send_from_directory,
-    request,
-    jsonify,
-)
+from datetime import datetime
 
-from bootstrap import application, db, RELEASES, CVE, CIPHER
-from web.models import Log
+from bootstrap import application
+from bootstrap import CIPHER
+from bootstrap import CVE
+from bootstrap import db
+from bootstrap import RELEASES
+from flask import current_app
+from flask import flash
+from flask import jsonify
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import send_from_directory
+from flask import url_for
 from lib import svg
+from pkg_resources import parse_version
+from web.models import Log
 
 logger = logging.getLogger(__name__)
 
@@ -121,6 +123,7 @@ def check_version(software=None):
             db.session.add(log)
             db.session.commit()
         except Exception as e:
+            db.session.rollback()
             print(e)
 
     return send_from_directory(

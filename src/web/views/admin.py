@@ -1,23 +1,22 @@
 import logging
-from flask import (
-    Blueprint,
-    render_template,
-    flash,
-    redirect,
-    url_for,
-    request,
-)
-from flask_login import login_required, current_user
-from flask_paginate import Pagination, get_page_args
-from flask_csv import send_csv
-from sqlalchemy import desc
-from werkzeug.security import generate_password_hash
-
 
 from bootstrap import db
-from web.views.session_mgmt import admin_permission
+from flask import Blueprint
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
+from flask_csv import send_csv
+from flask_login import current_user
+from flask_login import login_required
+from flask_paginate import get_page_args
+from flask_paginate import Pagination
+from sqlalchemy import desc
 from web import models
 from web.forms import UserForm
+from web.views.session_mgmt import admin_permission
+from werkzeug.security import generate_password_hash
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +75,7 @@ def process_user_form(user_id=None):
         if form.password.data:
             user.pwdhash = generate_password_hash(form.password.data)
         db.session.commit()
-        flash("User {} successfully updated.".format(form.login.data), "success")
+        flash(f"User {form.login.data} successfully updated.", "success")
         return redirect(url_for("admin_bp.form_user", user_id=user.id))
 
     # Create a new user
@@ -89,7 +88,7 @@ def process_user_form(user_id=None):
     )
     db.session.add(new_user)
     db.session.commit()
-    flash("User {} successfully created.".format(new_user.login), "success")
+    flash(f"User {new_user.login} successfully created.", "success")
 
     return redirect(url_for("admin_bp.form_user", user_id=new_user.id))
 
@@ -153,9 +152,7 @@ def list_logs(per_page):
         query = query.filter(models.Log.software_version == software_version)
 
     if http_referrer:
-        query = query.filter(
-            models.Log.http_referrer.like("%{}%".format(http_referrer))
-        )
+        query = query.filter(models.Log.http_referrer.like(f"%{http_referrer}%"))
 
     page, per_page, offset = get_page_args()
     pagination = Pagination(

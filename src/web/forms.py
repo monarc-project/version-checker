@@ -1,19 +1,15 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from flask import url_for, redirect
+from flask import redirect
+from flask import url_for
 from flask_wtf import FlaskForm
-from wtforms import (
-    StringField,
-    PasswordField,
-    BooleanField,
-    SubmitField,
-    validators,
-    HiddenField,
-)
-
 from lib import misc_utils
 from web.models import User
+from wtforms import BooleanField
+from wtforms import HiddenField
+from wtforms import PasswordField
+from wtforms import StringField
+from wtforms import SubmitField
+from wtforms import validators
 
 
 class RedirectForm(FlaskForm):

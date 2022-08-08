@@ -1,10 +1,7 @@
 #! /usr/bin/python
-# -*- coding:utf-8 -*
-
-from werkzeug.security import generate_password_hash
-
-from web.models import User
 from bootstrap import db
+from web.models import User
+from werkzeug.security import generate_password_hash
 
 
 def create_user(login, password, is_admin):

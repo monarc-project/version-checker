@@ -1,13 +1,11 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import logging
 
 import click
-
 import scripts
 import web.models
-from bootstrap import application, db
+from bootstrap import application
+from bootstrap import db
 
 
 logger = logging.getLogger("commands")
@@ -51,7 +49,7 @@ def db_init():
 @click.option("--password", default="password", help="Password")
 def create_user(login, password):
     "Initializes a user"
-    print("Creation of the user {}…".format(login))
+    print(f"Creation of the user {login}…")
     with application.app_context():
         scripts.create_user(login, password, False)
 
@@ -61,7 +59,7 @@ def create_user(login, password):
 @click.option("--password", default="password", help="Password")
 def create_admin(login, password):
     "Initializes an admin user"
-    print("Creation of the admin user {}…".format(login))
+    print(f"Creation of the admin user {login}…")
     with application.app_context():
         scripts.create_user(login, password, True)
 

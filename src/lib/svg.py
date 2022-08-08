@@ -1,5 +1,5 @@
-from bootstrap import application
 import svgwrite
+from bootstrap import application
 
 STYLE = {
     "up-to-date": {

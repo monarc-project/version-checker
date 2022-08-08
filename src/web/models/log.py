@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from web.models.right_mixin import RightMixin
 from bootstrap import db
+from web.models.right_mixin import RightMixin
 
 
 class Log(db.Model, RightMixin):

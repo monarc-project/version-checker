@@ -8,18 +8,16 @@ class RightMixin:
 
     @staticmethod
     def _fields_export_csv():
-        return set(
-            [
-                "software",
-                "software_version",
-                "http_referrer",
-                "user_agent_browser",
-                "user_agent_version",
-                "user_agent_language",
-                "user_agent_platform",
-                "timestamp",
-            ]
-        )
+        return {
+            "software",
+            "software_version",
+            "http_referrer",
+            "user_agent_browser",
+            "user_agent_version",
+            "user_agent_language",
+            "user_agent_platform",
+            "timestamp",
+        }
 
     @classmethod
     def fields_export_csv(cls):
