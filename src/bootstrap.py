@@ -6,9 +6,9 @@
 import os
 import errno
 import logging
-import flask_restless
 from contextlib import contextmanager
-from flask import Flask, request
+from flask import Flask
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
@@ -16,13 +16,9 @@ from Crypto.Hash import SHA256
 
 try:
     from data.software import RELEASES, CVE
-except:
+except Exception:
     # For examples, see in src/data/software.py.example
-    RELEASES = {'MONARC':
-                    {
-                        'stable': '2.5.0'
-                    }
-    }
+    RELEASES = {"MONARC": {"stable": "2.12.2"}}
     CVE = {}
 
 
@@ -38,15 +34,24 @@ def open_r_error(filename, mode="r"):
         finally:
             f.close()
 
-def set_logging(log_path=None, log_level=logging.INFO, modules=(),
-                log_format='%(asctime)s %(levelname)s %(message)s'):
+
+def set_logging(
+    log_path=None,
+    log_level=logging.INFO,
+    modules=(),
+    log_format="%(asctime)s %(levelname)s %(message)s",
+):
     if not modules:
-        modules = ('bootstrap', 'runserver', 'web',)
+        modules = (
+            "bootstrap",
+            "runserver",
+            "web",
+        )
     if log_path:
         if not os.path.exists(os.path.dirname(log_path)):
             os.makedirs(os.path.dirname(log_path))
         if not os.path.exists(log_path):
-            open(log_path, 'w').close()
+            open(log_path, "w").close()
         handler = logging.FileHandler(log_path)
     else:
         handler = logging.StreamHandler()
@@ -69,23 +74,27 @@ def create_directory(directory):
             if e.errno != errno.EEXIST:
                 raise
 
+
 # Create Flask application
-application = Flask('web', instance_relative_config=True)
+application = Flask("web", instance_relative_config=True)
 try:
-    application.config.from_pyfile('production.cfg', silent=False)
-except:
-    application.config.from_pyfile('development.cfg', silent=False)
+    application.config.from_pyfile("production.cfg", silent=False)
+except Exception:
+    application.config.from_pyfile("development.cfg", silent=False)
 
 db = SQLAlchemy(application)
+migrate = Migrate(application, db)
 
 
 # Jinja filters
-def datetimeformat(value, format='%Y-%m-%d %H:%M'):
+def datetimeformat(value, format="%Y-%m-%d %H:%M"):
     return value.strftime(format)
+
+
 # def instance_domain_name(*args):
 #     return request.url_root.replace('http', 'https').strip("/")
 
-application.jinja_env.filters['datetimeformat'] = datetimeformat
+application.jinja_env.filters["datetimeformat"] = datetimeformat
 # application.jinja_env.filters['instance_domain_name'] = instance_domain_name
 
 
@@ -93,19 +102,11 @@ application.jinja_env.filters['datetimeformat'] = datetimeformat
 
 # create_directory(application.config['GENERATED_SVG_FOLDER'])
 
-manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
-
 CIPHER = None
-with open_r_error(application.config['RSA_PRIVATE_KEY'], 'rb') as (priv_key, err):
+with open_r_error(application.config["RSA_PRIVATE_KEY"], "rb") as (priv_key, err):
     if err:
         CIPHER = None
     else:
         rsa_private_key = priv_key.read()
         private_key = RSA.import_key(rsa_private_key)
         CIPHER = PKCS1_OAEP.new(private_key, hashAlgo=SHA256)
-
-
-def populate_g():
-    from flask import g
-    g.db = db
-    g.app = application

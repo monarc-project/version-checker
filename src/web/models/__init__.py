@@ -5,19 +5,22 @@ from .user import User
 from .log import Log
 
 
-__all__ = ['User', 'Stat']
+__all__ = ["User", "Stat"]
 
 from sqlalchemy.engine import reflection
 from sqlalchemy import create_engine
-from sqlalchemy.schema import (MetaData,
-                               Table,
-                               DropTable,
-                               ForeignKeyConstraint,
-                               DropConstraint)
+from sqlalchemy.schema import (
+    MetaData,
+    Table,
+    DropTable,
+    ForeignKeyConstraint,
+    DropConstraint,
+)
 
 
 def mappers(*args):
     from sqlalchemy.orm import class_mapper
+
     return [class_mapper(x) for x in args]
 
 
@@ -26,11 +29,9 @@ def uml_graph(db):
     import sqlalchemy_schemadisplay as sasd
 
     graph = sasd.create_uml_graph(
-                        mappers(User, Log),
-                        show_operations=False,
-                        show_multiplicity_one=True
+        mappers(User, Log), show_operations=False, show_multiplicity_one=True
     )
-    graph.write_png('uml_graph.png') # write out the file
+    graph.write_png("uml_graph.png")  # write out the file
 
 
 def get_or_create(session, model, **kwargs):
@@ -46,9 +47,7 @@ def get_or_create(session, model, **kwargs):
 
 def db_create(db, db_config_dict, database_name):
     db_conn_format = "postgresql://{user}:{password}@{host}:{port}/{database}"
-    db_conn_uri_default = (db_conn_format.format(
-        database='postgres',
-        **db_config_dict))
+    db_conn_uri_default = db_conn_format.format(database="postgres", **db_config_dict)
     engine_default = create_engine(db_conn_uri_default)
     conn = engine_default.connect()
     conn.execute("COMMIT")
@@ -83,9 +82,9 @@ def db_empty(db):
         for table_name in inspector.get_table_names():
             fks = []
             for fk in inspector.get_foreign_keys(table_name):
-                if not fk['name']:
+                if not fk["name"]:
                     continue
-                fks.append(ForeignKeyConstraint((), (), name=fk['name']))
+                fks.append(ForeignKeyConstraint((), (), name=fk["name"]))
             t = Table(table_name, metadata, *fks)
             tbs.append(t)
             all_fks.extend(fks)

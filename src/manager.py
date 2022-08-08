@@ -2,72 +2,72 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from bootstrap import application, db
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+
+import click
 
 import scripts
 import web.models
+from bootstrap import application, db
 
 
-logger = logging.getLogger('manager')
-
-Migrate(application, db)
-manager = Manager(application)
-manager.add_command('db', MigrateCommand)
+logger = logging.getLogger("commands")
 
 
-@manager.command
+@application.cli.command("uml_graph")
 def uml_graph():
     "UML graph from the models."
     with application.app_context():
         web.models.uml_graph(db)
 
 
-@manager.command
+@application.cli.command("db_empty")
 def db_empty():
     "Will drop every datas stocked in db."
     with application.app_context():
         web.models.db_empty(db)
 
 
-@manager.command
+@application.cli.command("db_create")
 def db_create():
     "Will create the database."
+    print("created")
     with application.app_context():
-        web.models.db_create(db, application.config['DB_CONFIG_DICT'],
-                             application.config['DATABASE_NAME'])
+        web.models.db_create(
+            db,
+            application.config["DB_CONFIG_DICT"],
+            application.config["DATABASE_NAME"],
+        )
 
 
-@manager.command
+@application.cli.command("db_init")
 def db_init():
     "Will create the database from conf parameters."
     with application.app_context():
         web.models.db_init(db)
 
 
-@manager.command
+@application.cli.command("create_user")
+@click.option("--login", default="admin", help="Login")
+@click.option("--password", default="password", help="Password")
 def create_user(login, password):
     "Initializes a user"
-    print("Creation of the user {} ...".format(login))
+    print("Creation of the user {}…".format(login))
     with application.app_context():
         scripts.create_user(login, password, False)
 
 
-@manager.command
+@application.cli.command("create_admin")
+@click.option("--login", default="admin", help="Login")
+@click.option("--password", default="password", help="Password")
 def create_admin(login, password):
     "Initializes an admin user"
-    print("Creation of the admin user {} ...".format(login))
+    print("Creation of the admin user {}…".format(login))
     with application.app_context():
         scripts.create_user(login, password, True)
 
 
-@manager.command
+@application.cli.command("logs")
+@click.option("--software", default="MONARC", help="Name of a software.")
 def logs(software):
-    result = web.models.Log.query.filter(
-                    web.models.Log.software==software).all()
-    print(*result, sep='\n')
-
-
-if __name__ == '__main__':
-    manager.run()
+    result = web.models.Log.query.filter(web.models.Log.software == software).all()
+    print(*result, sep="\n")

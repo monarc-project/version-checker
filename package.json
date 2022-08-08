@@ -1,6 +1,6 @@
 {
   "name": "version-checker",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Checks the version of a software.",
   "scripts": {
     "postinstall": "cd src/web/static/ ; ln -sf ../../../node_modules npm_components"
@@ -8,16 +8,17 @@
   "author": "Cédric Bonhomme",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.1.0",
+    "@fortawesome/fontawesome-free": "^6.1.1",
     "bootstrap": "^4.0.1",
-    "chart.js": "^2.7.2",
-    "datatables.net-bs4": "^1.10.16",
-    "iso-639-1": "^2.0.3",
-    "jquery": "^3.3.1",
-    "lodash": "^4.17.10",
+    "chart.js": "^3.8.0",
+    "datatables.net-bs4": "^1.12.1",
+    "iso-639-1": "^2.1.15",
+    "jquery": "^3.6.0",
+    "lodash": "^4.17.21",
     "popper.js": "^1.14.1"
   },
   "engines": {
-    "npm": "6.1.0"
+      "node": "16.x",
+      "npm": "8.3.0"
   }
 }

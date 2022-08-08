@@ -6,10 +6,12 @@ from werkzeug.security import check_password_hash
 
 from bootstrap import db
 
+
 class User(db.Model, UserMixin):
     """
     Represent a user.
     """
+
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(30), unique=True, nullable=False)
     pwdhash = db.Column(db.String(), nullable=False)
@@ -20,7 +22,6 @@ class User(db.Model, UserMixin):
     is_active = db.Column(db.Boolean(), default=False)
     is_admin = db.Column(db.Boolean(), default=False)
     is_api = db.Column(db.Boolean(), default=False)
-
 
     def get_id(self):
         """
@@ -37,8 +38,7 @@ class User(db.Model, UserMixin):
     def __str__(self):
         return self.login
 
-    @validates('login')
+    @validates("login")
     def validates_login(self, key, value):
-        assert 3 <= len(value) <= 30, \
-            AssertionError("maximum length for login: 30")
-        return re.sub('[^a-zA-Z0-9_\.]', '', value.strip())
+        assert 3 <= len(value) <= 30, AssertionError("maximum length for login: 30")
+        return re.sub("[^a-zA-Z0-9_-]", "", value)

@@ -1,6 +1,6 @@
 [[package]]
 name = "alembic"
-version = "1.8.0"
+version = "1.8.1"
 description = "A database migration tool for SQLAlchemy."
 category = "main"
 optional = false
@@ -17,11 +17,11 @@ tz = ["python-dateutil"]
 
 [[package]]
 name = "blinker"
-version = "1.4"
+version = "1.5"
 description = "Fast, simple object-to-object and broadcast signaling"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "click"
@@ -52,7 +52,7 @@ python-versions = "*"
 
 [[package]]
 name = "flask"
-version = "2.1.2"
+version = "2.2.1"
 description = "A simple framework for building complex web applications."
 category = "main"
 optional = false
@@ -63,7 +63,7 @@ click = ">=8.0"
 importlib-metadata = {version = ">=3.6.0", markers = "python_version < \"3.10\""}
 itsdangerous = ">=2.0"
 Jinja2 = ">=3.0"
-Werkzeug = ">=2.0"
+Werkzeug = ">=2.2.0"
 
 [package.extras]
 async = ["asgiref (>=3.2)"]
@@ -84,7 +84,7 @@ marshmallow = "*"
 
 [[package]]
 name = "flask-login"
-version = "0.6.1"
+version = "0.6.2"
 description = "User authentication and session management for Flask."
 category = "main"
 optional = false
@@ -128,31 +128,6 @@ python-versions = "*"
 
 [package.dependencies]
 blinker = "*"
-Flask = "*"
-
-[[package]]
-name = "flask-restless"
-version = "0.17.0"
-description = "A Flask extension for easy ReSTful API generation"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-flask = ">=0.10"
-mimerender = ">=0.5.2"
-python-dateutil = ">2.0"
-sqlalchemy = ">=0.8"
-
-[[package]]
-name = "flask-script"
-version = "2.0.6"
-description = "Scripting support for Flask"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
 Flask = "*"
 
 [[package]]
@@ -212,7 +187,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 
 [[package]]
 name = "importlib-resources"
-version = "5.8.0"
+version = "5.9.0"
 description = "Read resources from Python packages"
 category = "main"
 optional = false
@@ -222,8 +197,8 @@ python-versions = ">=3.7"
 zipp = {version = ">=3.1.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
+docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)", "jaraco.tidelift (>=1.4)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [[package]]
 name = "itsdangerous"
@@ -289,17 +264,6 @@ lint = ["mypy (==0.961)", "flake8 (==4.0.1)", "flake8-bugbear (==22.6.22)", "pre
 tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
-name = "mimerender"
-version = "0.6.0"
-description = "RESTful HTTP Content Negotiation for Flask, Bottle, web.py and webapp2 (Google App Engine)"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-python_mimeparse = ">=0.1.4"
-
-[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
@@ -338,33 +302,6 @@ python-versions = ">=3.6.8"
 diagrams = ["railroad-diagrams", "jinja2"]
 
 [[package]]
-name = "python-dateutil"
-version = "2.8.2"
-description = "Extensions to the standard Python datetime module"
-category = "main"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
-
-[package.dependencies]
-six = ">=1.5"
-
-[[package]]
-name = "python-mimeparse"
-version = "1.6.0"
-description = "A module provides basic functions for parsing mime-type names and matching them against a list of media-ranges."
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "six"
-version = "1.16.0"
-description = "Python 2 and 3 compatibility utilities"
-category = "main"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-
-[[package]]
 name = "sqlalchemy"
 version = "1.4.39"
 description = "Database Abstraction Library"
@@ -398,7 +335,7 @@ sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
 name = "svgwrite"
-version = "1.4.2"
+version = "1.4.3"
 description = "A Python library to create SVG drawings."
 category = "main"
 optional = false
@@ -406,11 +343,14 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "werkzeug"
-version = "2.1.2"
+version = "2.2.1"
 description = "The comprehensive WSGI web application library."
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[package.dependencies]
+MarkupSafe = ">=2.1.1"
 
 [package.extras]
 watchdog = ["watchdog"]
@@ -431,29 +371,24 @@ email = ["email-validator"]
 
 [[package]]
 name = "zipp"
-version = "3.8.0"
+version = "3.8.1"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
+docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)", "jaraco.tidelift (>=1.4)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.3)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "7fb33732b44e4eace6f0780bcb3e9c68673e934224e359c188412c9c03190310"
+content-hash = "e42dbe66055f7d57864a5d8b5c05f6b3adf76ad1bbf98a7a319842a6ff38e3e5"
 
 [metadata.files]
-alembic = [
-    {file = "alembic-1.8.0-py3-none-any.whl", hash = "sha256:b5ae4bbfc7d1302ed413989d39474d102e7cfa158f6d5969d2497955ffe85a30"},
-    {file = "alembic-1.8.0.tar.gz", hash = "sha256:a2d4d90da70b30e70352cd9455e35873a255a31402a438fe24815758d7a0e5e1"},
-]
-blinker = [
-    {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
-]
+alembic = []
+blinker = []
 click = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
     {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
@@ -465,17 +400,11 @@ colorama = [
 csvalidate = [
     {file = "csvalidate-1.1.1.tar.gz", hash = "sha256:9ae2c72af8639ae556d2c3e6a5a2134058691ad4af708890a7b33e073c501cb2"},
 ]
-flask = [
-    {file = "Flask-2.1.2-py3-none-any.whl", hash = "sha256:fad5b446feb0d6db6aec0c3184d16a8c1f6c3e464b511649c8918a9be100b4fe"},
-    {file = "Flask-2.1.2.tar.gz", hash = "sha256:315ded2ddf8a6281567edb27393010fe3406188bafbfe65a3339d5787d89e477"},
-]
+flask = []
 flask-csv = [
     {file = "Flask-CSV-1.2.0.tar.gz", hash = "sha256:b8642cd9b21b316f51fd5d8ed413b53526c80f5a89ff7024ede8b12e10b8c68d"},
 ]
-flask-login = [
-    {file = "Flask-Login-0.6.1.tar.gz", hash = "sha256:1306d474a270a036d6fd14f45640c4d77355e4f1c67ca4331b372d3448997b8c"},
-    {file = "Flask_Login-0.6.1-py3-none-any.whl", hash = "sha256:b9a4287a2d0067a7a482a23e40075e0d670f371974633fe890222dece4e02a74"},
-]
+flask-login = []
 flask-migrate = [
     {file = "Flask-Migrate-3.1.0.tar.gz", hash = "sha256:57d6060839e3a7f150eaab6fe4e726d9e3e7cffe2150fb223d73f92421c6d1d9"},
     {file = "Flask_Migrate-3.1.0-py3-none-any.whl", hash = "sha256:a6498706241aba6be7a251078de9cf166d74307bca41a4ca3e403c9d39e2f897"},
@@ -486,12 +415,6 @@ flask-paginate = [
 ]
 flask-principal = [
     {file = "Flask-Principal-0.4.0.tar.gz", hash = "sha256:f5d6134b5caebfdbb86f32d56d18ee44b080876a27269560a96ea35f75c99453"},
-]
-flask-restless = [
-    {file = "Flask-Restless-0.17.0.tar.gz", hash = "sha256:1de47fe80abd47239c9a1804e0ba5da1d23b9f40cfc26202d16bed37f178c2b6"},
-]
-flask-script = [
-    {file = "Flask-Script-2.0.6.tar.gz", hash = "sha256:6425963d91054cfcc185807141c7314a9c5ad46325911bd24dcb489bd0161c65"},
 ]
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-2.5.1.tar.gz", hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912"},
@@ -557,10 +480,7 @@ importlib-metadata = [
     {file = "importlib_metadata-4.12.0-py3-none-any.whl", hash = "sha256:7401a975809ea1fdc658c3aa4f78cc2195a0e019c5cbc4c06122884e9ae80c23"},
     {file = "importlib_metadata-4.12.0.tar.gz", hash = "sha256:637245b8bab2b6502fcbc752cc4b7a6f6243bb02b31c5c26156ad103d3d45670"},
 ]
-importlib-resources = [
-    {file = "importlib_resources-5.8.0-py3-none-any.whl", hash = "sha256:7952325ffd516c05a8ad0858c74dff2c3343f136fe66a6002b2623dd1d43f223"},
-    {file = "importlib_resources-5.8.0.tar.gz", hash = "sha256:568c9f16cb204f9decc8d6d24a572eeea27dacbb4cee9e6b03a8025736769751"},
-]
+importlib-resources = []
 itsdangerous = [
     {file = "itsdangerous-2.1.2-py3-none-any.whl", hash = "sha256:2c2349112351b88699d8d4b6b075022c0808887cb7ad10069318a8b0bc88db44"},
     {file = "itsdangerous-2.1.2.tar.gz", hash = "sha256:5dbbc68b317e5e42f327f9021763545dc3fc3bfe22e6deb96aaf1fc38874156a"},
@@ -618,9 +538,6 @@ markupsafe = [
 marshmallow = [
     {file = "marshmallow-3.17.0-py3-none-any.whl", hash = "sha256:00040ab5ea0c608e8787137627a8efae97fabd60552a05dc889c888f814e75eb"},
     {file = "marshmallow-3.17.0.tar.gz", hash = "sha256:635fb65a3285a31a30f276f30e958070f5214c7196202caa5c7ecf28f5274bc7"},
-]
-mimerender = [
-    {file = "mimerender-0.6.0.tar.gz", hash = "sha256:e7f1377efee18c3f562cee54907a3329223c824332889fb74b745ddfd0a9b1c6"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
@@ -720,18 +637,6 @@ pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
 ]
-python-dateutil = [
-    {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
-    {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
-]
-python-mimeparse = [
-    {file = "python-mimeparse-1.6.0.tar.gz", hash = "sha256:76e4b03d700a641fd7761d3cd4fdbbdcd787eade1ebfac43f877016328334f78"},
-    {file = "python_mimeparse-1.6.0-py2.py3-none-any.whl", hash = "sha256:a295f03ff20341491bfe4717a39cd0a8cc9afad619ba44b77e86b0ab8a2b8282"},
-]
-six = [
-    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
-    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
-]
 sqlalchemy = [
     {file = "SQLAlchemy-1.4.39-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:4770eb3ba69ec5fa41c681a75e53e0e342ac24c1f9220d883458b5596888e43a"},
     {file = "SQLAlchemy-1.4.39-cp27-cp27m-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:752ef2e8dbaa3c5d419f322e3632f00ba6b1c3230f65bc97c2ff5c5c6c08f441"},
@@ -770,19 +675,10 @@ sqlalchemy = [
     {file = "SQLAlchemy-1.4.39-cp39-cp39-win_amd64.whl", hash = "sha256:8b773c9974c272aae0fa7e95b576d98d17ee65f69d8644f9b6ffc90ee96b4d19"},
     {file = "SQLAlchemy-1.4.39.tar.gz", hash = "sha256:8194896038753b46b08a0b0ae89a5d80c897fb601dd51e243ed5720f1f155d27"},
 ]
-svgwrite = [
-    {file = "svgwrite-1.4.2-py3-none-any.whl", hash = "sha256:ca63d76396d1f6f099a2b2d8cf1419e1c1de8deece9a2b7f4da0632067d71d43"},
-    {file = "svgwrite-1.4.2.zip", hash = "sha256:d304a929f197d31647c287c10eee0f64378058e1c83a9df83433a5980864e59f"},
-]
-werkzeug = [
-    {file = "Werkzeug-2.1.2-py3-none-any.whl", hash = "sha256:72a4b735692dd3135217911cbeaa1be5fa3f62bffb8745c5215420a03dc55255"},
-    {file = "Werkzeug-2.1.2.tar.gz", hash = "sha256:1ce08e8093ed67d638d63879fd1ba3735817f7a80de3674d293f5984f25fb6e6"},
-]
+svgwrite = []
+werkzeug = []
 wtforms = [
     {file = "WTForms-3.0.1-py3-none-any.whl", hash = "sha256:837f2f0e0ca79481b92884962b914eba4e72b7a2daaf1f939c890ed0124b834b"},
     {file = "WTForms-3.0.1.tar.gz", hash = "sha256:6b351bbb12dd58af57ffef05bc78425d08d1914e0fd68ee14143b7ade023c5bc"},
 ]
-zipp = [
-    {file = "zipp-3.8.0-py3-none-any.whl", hash = "sha256:c4f6e5bbf48e74f7a38e7cc5b0480ff42b0ae5178957d564d18932525d5cf099"},
-    {file = "zipp-3.8.0.tar.gz", hash = "sha256:56bf8aadb83c24db6c4b577e13de374ccfb67da2078beba1d037c17980bf43ad"},
-]
+zipp = []

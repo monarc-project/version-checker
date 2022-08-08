@@ -6,21 +6,6 @@ Install PostgreSQL and NPM:
 sudo apt install postgresql npm build-essential
 ```
 
-
-# Setting your Python environment
-
-Install [pyenv](https://github.com/pyenv/pyenv),
-then [pipsi](https://github.com/mitsuhiko/pipsi).
-Then install pipenv:
-
-
-```bash
-$ pyenv install 3.7.0
-$ pyenv global 3.7.0
-$ pipsi install pipenv
-```
-
-
 # Configuration
 
 ## JavaScript dependencies
@@ -46,17 +31,27 @@ Configure the connection to the database and initialize it:
 
 ```bash
 $ cp src/instance/production.cfg.example  src/instance/production.cfg
-$ vim src/instance/prod.cfg
-$ export APPLICATION_SETTINGS=prod.cfg
+$ vim src/instance/production.cfg
+$ export APPLICATION_SETTINGS=production.cfg
 $ sudo -u postgres createuser <db-user> --createdb
 $ echo "ALTER USER <db-user>  WITH ENCRYPTED PASSWORD '<db-user-password>';" | sudo -u postgres psq
 
-$ pipenv install
-$ pipenv shell
-$ python src/manager.py db_create
-$ python src/manager.py db_init
+$ poetry install
+$ poetry shell
+$ export FLASK_APP=src/runserver.py
+$ flask db_create
+$ flask db_init
 
-$ python src/manager.py create_admin <username> <password>
+$ flask create_admin --login admin --password password
+Creation of the admin user admin…
+
+$ flask run
+ * Serving Flask app 'src/runserver.py' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
 ```
 
 ## RSA key pair
