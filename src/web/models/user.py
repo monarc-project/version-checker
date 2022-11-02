@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     """
 
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String(30), unique=True, nullable=False)
+    login = db.Column(db.String(50), unique=True, nullable=False)
     pwdhash = db.Column(db.String(), nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow())
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
@@ -40,5 +40,5 @@ class User(db.Model, UserMixin):
 
     @validates("login")
     def validates_login(self, key, value):
-        assert 3 <= len(value) <= 30, AssertionError("maximum length for login: 30")
+        assert 3 <= len(value) <= 50, AssertionError("maximum length for login: 50")
         return re.sub("[^a-zA-Z0-9_-]", "", value)

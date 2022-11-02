@@ -39,7 +39,7 @@ class SigninForm(RedirectForm):
     login = StringField(
         "Login",
         [
-            validators.Length(min=3, max=30),
+            validators.Length(min=3, max=50),
             validators.InputRequired("Please enter your login."),
         ],
     )
@@ -47,7 +47,7 @@ class SigninForm(RedirectForm):
         "Password",
         [
             validators.InputRequired("Please enter your password."),
-            validators.Length(min=6, max=100),
+            validators.Length(min=15, max=200),
         ],
     )
     submit = SubmitField("Log In")
@@ -81,7 +81,7 @@ class UserForm(FlaskForm):
     login = StringField(
         "Login",
         [
-            validators.Length(min=3, max=30),
+            validators.Length(min=3, max=50),
             validators.InputRequired("Please enter your login."),
         ],
     )
@@ -100,7 +100,7 @@ class ProfileForm(FlaskForm):
     login = StringField(
         "Login",
         [
-            validators.Length(min=3, max=30),
+            validators.Length(min=3, max=50),
             validators.InputRequired("Please enter your login."),
         ],
     )
