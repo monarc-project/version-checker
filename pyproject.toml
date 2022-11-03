@@ -16,10 +16,11 @@ Flask-WTF = "*"
 WTForms = "*"
 flask-migrate = "*"
 svgwrite = "*"
-flask-csv = "*"
 pycryptodome = "*"
 flask-paginate = "*"
 psycopg2-binary = "*"
+csvalidate = "^1.1.1"
+marshmallow = "^3.18.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"

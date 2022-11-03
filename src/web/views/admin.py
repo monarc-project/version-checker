@@ -7,16 +7,17 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
-from flask_csv import send_csv
 from flask_login import current_user
 from flask_login import login_required
 from flask_paginate import get_page_args
 from flask_paginate import Pagination
+from lib.misc_utils import send_csv
 from sqlalchemy import desc
 from web import models
 from web.forms import UserForm
 from web.views.session_mgmt import admin_permission
 from werkzeug.security import generate_password_hash
+
 
 logger = logging.getLogger(__name__)
 
