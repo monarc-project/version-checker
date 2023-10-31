@@ -6,6 +6,7 @@ from bootstrap import RELEASES
 from flask import current_app
 from flask import redirect
 from flask import render_template
+from flask import request
 from flask import session
 from flask import url_for
 from flask_login import current_user
@@ -74,7 +75,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for("admin_bp.list_logs"))
     form = SigninForm()
-    if form.validate_on_submit():
+    if request.method == "POST" and form.validate():  # fixes an issue in flask-wtf
         login_user(form.user)
         identity_changed.send(current_app, identity=Identity(form.user.id))
         session_identity_loader()
